@@ -10,6 +10,7 @@ import {
   ClipboardList,
   FileQuestionIcon,
   DollarSign,
+  TrendingUp,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { cn, initials } from "@/lib/utils";
@@ -43,6 +44,7 @@ const navItems = [
   },
   { href: "/admin/shipments",  icon: Ship,              label: "Shipments" },
   { href: "/admin/finance",    icon: DollarSign,        label: "Finance & Settlement" },
+  { href: "/admin/commodity-prices", icon: TrendingUp, label: "Commodity Prices" },
   { href: "/admin/contacts",   icon: MessageSquare,     label: "Contact Inbox" },
   /* { href: "/admin/news",       icon: Newspaper,         label: "News & Events" },
   { href: "/admin/analytics",  icon: BarChart3,         label: "Analytics" },

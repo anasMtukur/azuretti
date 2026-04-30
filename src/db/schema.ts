@@ -478,6 +478,7 @@ export const commodityPrices = pgTable("commodity_prices", {
   market:      text("market").notNull(),           // "Kano", "Lagos", "International"
   state:       text("state"),
   pricePerKg:  decimal("price_per_kg", { precision: 10, scale: 4 }),
+  priceChange: text("price_change"),
   currency:    text("currency").default("NGN"),
   source:      text("source"),
   recordedAt:  timestamp("recorded_at", { mode: "date" }).defaultNow().notNull(),

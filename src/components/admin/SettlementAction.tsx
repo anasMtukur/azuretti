@@ -47,7 +47,7 @@ export function SettlementAction({
 
   // ── pending → processing (simple button, no form needed) ───
   if (currentStatus === "pending") {
-    async function markProcessing() {
+    const markProcessing = async () => {
       setLoading(true);
       try {
         const res = await fetch("/api/admin/settlements/bulk", {
@@ -86,7 +86,7 @@ export function SettlementAction({
   }
 
   // ── processing → settled (expanded form with proof upload) ──
-  async function markSettled() {
+  const markSettled = async () => {
     setLoading(true);
     try {
       const res = await fetch("/api/admin/settlements/bulk", {
@@ -165,7 +165,7 @@ export function SettlementAction({
       {/* Proof of settlement upload */}
       <ProofOfPaymentUploader
         uploadUrlEndpoint="/api/admin/settlements/upload-url"
-        onUploaded={(url) => setProofUrl(url)}
+        onUploaded={(url: string) => setProofUrl(url)}
         onCleared={() => setProofUrl(null)}
         label="Proof of Settlement"
       />

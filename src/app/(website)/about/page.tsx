@@ -33,7 +33,7 @@ const partnerships = [
     desc:  "Onboarding, technical support and long-term supply contracts via the Trade House.",
     cta:   "Sign Up",
     href:  "/auth/register?role=exporter",
-    style: "bg-primary-600 text-white",
+    style: "bg-primary-100 border border-primary-400 text-slate-50",
     ctaStyle: "bg-white text-primary-700 hover:bg-primary-50",
   },
   {
