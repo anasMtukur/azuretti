@@ -46,9 +46,9 @@ const navItems = [
   { href: "/admin/finance",    icon: DollarSign,        label: "Finance & Settlement" },
   { href: "/admin/commodity-prices", icon: TrendingUp, label: "Commodity Prices" },
   { href: "/admin/contacts",   icon: MessageSquare,     label: "Contact Inbox" },
-  /* { href: "/admin/news",       icon: Newspaper,         label: "News & Events" },
-  { href: "/admin/analytics",  icon: BarChart3,         label: "Analytics" },
-  { href: "/admin/settings",   icon: Settings,          label: "Settings" }, */
+  { href: "/admin/news",       icon: Newspaper,         label: "News & Events" },
+  { href: "/admin/reports",  icon: BarChart3,         label: "Reports & Analytics" },
+  /* { href: "/admin/settings",   icon: Settings,          label: "Settings" }, */
 ];
 
 const ACCENT = "#7c3aed"; // admin purple

@@ -25,6 +25,7 @@ function getNavItems(role: UserRole) {
       { href: "/portal/exporter/dashboard",    icon: LayoutDashboard, label: "Dashboard" },
       { href: "/portal/exporter/warehouse",    icon: Warehouse,       label: "My Warehouse" },
       { href: "/portal/exporter/sales",        icon: DollarSign,      label: "My Sales" },
+      { href: "/portal/exporter/reports",    icon: BarChart3,        label: "Reports & Audit" },
       /* { href: "/portal/exporter/shipments",    icon: Ship,            label: "My Shipments" },
       { href: "/portal/exporter/offers",       icon: Package,         label: "Supply Offers" },
       { href: "/portal/exporter/documents",    icon: FileText,        label: "Documents" },
@@ -47,8 +48,8 @@ function getNavItems(role: UserRole) {
         ],
       },
       { href: "/portal/buyer/shipments",    icon: Ship,            label: "Shipments" },
-      /* { href: "/portal/buyer/documents",    icon: FileText,        label: "Documents" },
-      { href: "/portal/buyer/notifications",icon: Bell,            label: "Notifications" },
+      { href: "/portal/buyer/reports",    icon: BarChart3,        label: "Reports & Audit" },
+      /* { href: "/portal/buyer/notifications",icon: Bell,            label: "Notifications" },
       { href: "/portal/buyer/settings",     icon: Settings,        label: "Settings" }, */
     ];
   }

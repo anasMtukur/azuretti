@@ -1,359 +1,255 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import {
-  ArrowRight,
-  Calendar,
-  MapPin,
-  Newspaper,
-  Plane,
-  Users,
-  ChevronRight,
-} from "lucide-react";
-import { ExpressInterestForm } from "@/components/website/ExpressInterestForm";
+import { db } from "@/db";
+import { newsEvents } from "@/db/schema";
+import { eq, desc, and } from "drizzle-orm";
+import { Calendar, MapPin, ArrowRight, Newspaper } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "News & Trade Missions – Azuretti",
-  description:
-    "Stay up to date with Azuretti trade missions to France, warehouse visits, buyer–seller meetings and Nigerian export regulatory updates.",
+  title:       "News & Events | Azuretti Service & Distribution",
+  description: "Latest news, trade events and missions from Azuretti Trade House.",
 };
 
-// ── Static data — replace with DB fetch in production ─────────────────────
-const featuredMission = {
-  id:       "trade-mission-france-2025",
-  type:     "trade_mission",
-  title:    "One-Week Trade Mission to France",
-  date:     "May 2025",
-  location: "Villeneuve-sur-Lot, France",
-  excerpt:
-    "Azuretti organises a one-week trade mission to France, inviting selected Nigerian exporters to visit the Nigerian Export Trade House, meet European buyers and attend compliance workshops.",
-  highlights: [
-    "Guided visit to the Nigerian Export Trade House in Villeneuve-sur-Lot",
-    "Face-to-face meetings with European importers and distributors",
-    "Compliance and EU market access workshops",
-    "Lab visit and product testing demonstration",
-    "Networking dinner with French-Nigerian trade community",
-  ],
-  status: "upcoming" as const,
-  image:  null,
-};
+// ── Types ──────────────────────────────────────────────────────────────────
 
-const newsItems = [
-  {
-    id:       "nepc-partnership-2025",
-    type:     "news",
-    title:    "Azuretti deepens partnership with Nigerian Export Promotion Council",
-    date:     "March 2025",
-    location: "Abuja, Nigeria",
-    excerpt:
-      "Azuretti and the NEPC have formalised their collaboration to support more Nigerian exporters in meeting EU food safety and compliance requirements for agricultural commodities.",
-    tag:      "Partnership",
-  },
-  {
-    id:       "kano-warehouse-visit-2025",
-    type:     "event",
-    title:    "Kano warehouse open day — exporters invited",
-    date:     "February 2025",
-    location: "Kano, Nigeria",
-    excerpt:
-      "Azuretti hosted an open day at its Kano warehouse facility, welcoming exporters, farmers and commodity traders to see the storage, grading and documentation process firsthand.",
-    tag:      "Event",
-  },
-  {
-    id:       "eu-mrl-update-2024",
-    type:     "regulatory",
-    title:    "Key EU MRL update for sesame seeds — what exporters need to know",
-    date:     "December 2024",
-    location: "Brussels / Lagos",
-    excerpt:
-      "The European Commission has revised maximum residue limits for certain pesticides in sesame seeds. Azuretti outlines the impact on Nigerian exporters and the steps required.",
-    tag:      "Regulation",
-  },
-  {
-    id:       "training-kano-jan-2025",
-    type:     "event",
-    title:    "Export compliance training — Kano session recap",
-    date:     "January 2025",
-    location: "Kano, Nigeria",
-    excerpt:
-      "Over 25 exporters and farmers attended the first Azuretti physical training session in Kano. Participants covered EU food safety regulations, phytosanitary documentation and practical export processes.",
-    tag:      "Training",
-  },
-  {
-    id:       "hibiscus-season-2024",
-    type:     "market",
-    title:    "Nigerian hibiscus season 2024/25 — supply outlook and EU demand",
-    date:     "November 2024",
-    location: "Kano / France",
-    excerpt:
-      "Azuretti analyses the 2024/25 hibiscus flower harvest season in northern Nigeria, EU import trends and price expectations for the coming year.",
-    tag:      "Market Update",
-  },
-  {
-    id:       "france-buyer-meeting-2024",
-    type:     "event",
-    title:    "Buyer–seller meeting at the France Trade House — October 2024",
-    date:     "October 2024",
-    location: "Villeneuve-sur-Lot, France",
-    excerpt:
-      "Azuretti hosted a buyer–seller day at the France Trade House, bringing together four Nigerian exporters and eight European buyers for direct product presentations and contract discussions.",
-    tag:      "Event",
-  },
+interface Props {
+  searchParams: { type?: string };
+}
+
+const TYPE_FILTER_TABS = [
+  { key: "all",          label: "All" },
+  { key: "news",         label: "News" },
+  { key: "event",        label: "Events" },
+  { key: "trade_mission",label: "Trade Missions" },
 ];
 
-const tagColors: Record<string, string> = {
-  Partnership:   "bg-blue-50 text-blue-700",
-  Event:         "bg-primary-50 text-primary-700",
-  Regulation:    "bg-red-50 text-red-700",
-  Training:      "bg-purple-50 text-purple-700",
-  "Market Update":"bg-accent-50 text-accent-700",
+const TYPE_BADGE: Record<string, { label: string; bg: string; text: string }> = {
+  news:          { label: "News",          bg: "#dbeafe", text: "#1e40af" },
+  event:         { label: "Event",         bg: "#dcfce7", text: "#166534" },
+  trade_mission: { label: "Trade Mission", bg: "#fef3c7", text: "#92400e" },
 };
 
-const missionBenefits = [
-  { icon: Plane,    label: "Visit the Nigerian Export Trade House in France" },
-  { icon: Users,    label: "Meet European buyers and distributors in person" },
-  { icon: Calendar, label: "Attend compliance and EU market access workshops" },
-];
+function formatDate(d: Date | string): string {
+  return new Date(d).toLocaleDateString("en-GB", {
+    day: "numeric", month: "long", year: "numeric",
+  });
+}
 
-export default function NewsPage() {
+// ── Page ───────────────────────────────────────────────────────────────────
+
+export default async function NewsPage({ searchParams }: Props) {
+  const typeFilter = searchParams.type;
+  const validType  = typeFilter && ["news","event","trade_mission"].includes(typeFilter)
+    ? typeFilter
+    : null;
+
+  const conditions: any[] = [eq(newsEvents.isPublished, true)];
+  if (validType) conditions.push(eq(newsEvents.type, validType));
+
+  const items = await db
+    .select({
+      id:          newsEvents.id,
+      title:       newsEvents.title,
+      slug:        newsEvents.slug,
+      type:        newsEvents.type,
+      excerpt:     newsEvents.excerpt,
+      imageUrl:    newsEvents.imageUrl,
+      eventDate:   newsEvents.eventDate,
+      location:    newsEvents.location,
+      publishedAt: newsEvents.publishedAt,
+    })
+    .from(newsEvents)
+    .where(and(...conditions))
+    .orderBy(desc(newsEvents.publishedAt))
+    .limit(50);
+
+  const featured    = items[0];
+  const remaining   = items.slice(1);
+
   return (
-    <>
-      {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative pt-40 pb-20 bg-gradient-hero overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div className="container-theme relative z-10">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-6">
-              <Newspaper className="h-3.5 w-3.5 text-accent-400" />
-              News & Trade Missions
-            </div>
-            <h1 className="font-display font-bold text-white mb-5">
-              Trade missions, events &<br />market updates
-            </h1>
-            <p className="text-lg text-primary-200 leading-relaxed">
-              Stay up to date with Azuretti's trade missions to France, warehouse visits,
-              buyer–seller meetings and key regulatory updates affecting Nigerian exports to the EU.
+    <main className="min-h-screen bg-white">
+      {/* ── Hero ────────────────────────────────────────── */}
+      <section className="bg-gradient-to-br from-primary-950 to-primary-800  pt-48 pb-20 px-4">
+        <div className="max-w-5xl mx-auto text-center">
+          <p className="text-accent-400 text-xs font-bold uppercase tracking-widest mb-4">
+            Stay informed
+          </p>
+          <h1 className="font-display font-bold text-4xl sm:text-5xl text-white mb-4">
+            News & Events
+          </h1>
+          <p className="text-primary-200 text-lg max-w-2xl mx-auto">
+            The latest updates from the Azuretti Trade House — export news,
+            trade missions and industry events from Nigeria and Europe.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Filter tabs ─────────────────────────────────── */}
+      <div className="border-b border-border bg-white sticky top-0 z-10">
+        <div className="max-w-5xl mx-auto px-4 flex gap-1 overflow-x-auto">
+          {TYPE_FILTER_TABS.map(({ key, label }) => (
+            <Link
+              key={key}
+              href={key === "all" ? "/news" : `/news?type=${key}`}
+              className={`px-4 py-3.5 text-sm font-medium whitespace-nowrap border-b-2 transition-colors ${
+                (key === "all" && !validType) || key === validType
+                  ? "border-primary-600 text-primary-700"
+                  : "border-transparent text-neutral-500 hover:text-neutral-800 hover:border-neutral-300"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className="max-w-5xl mx-auto px-4 py-12 space-y-12">
+
+        {items.length === 0 ? (
+          <div className="text-center py-20">
+            <Newspaper className="h-12 w-12 text-neutral-200 mx-auto mb-4" />
+            <p className="text-neutral-500 font-medium">No articles found</p>
+            <p className="text-neutral-400 text-sm mt-1">
+              {validType ? "Try a different filter." : "Check back soon."}
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* ── Featured Trade Mission ─────────────────────────────────────── */}
-      <section className="section-padding bg-white">
-        <div className="container-theme">
-          <div className="max-w-xl mb-10">
-            <span className="section-label mb-4">Featured Event</span>
-            <h2 className="font-display font-bold text-neutral-900">
-              Trade Mission to France
-            </h2>
-          </div>
-
-          <div className="rounded-2xl overflow-hidden border border-border bg-neutral-50 lg:grid lg:grid-cols-2">
-            {/* Left — content */}
-            <div className="p-8 lg:p-12 flex flex-col">
-              <div className="flex flex-wrap gap-2 mb-5">
-                <span className="badge bg-primary-100 text-primary-700">Trade Mission</span>
-                <span className="badge bg-accent-100 text-accent-700">
-                  {featuredMission.status === "upcoming" ? "Upcoming" : "Past"}
-                </span>
-              </div>
-
-              <h3 className="font-display font-bold text-2xl text-neutral-900 mb-3">
-                {featuredMission.title}
-              </h3>
-
-              <div className="flex flex-wrap gap-4 mb-5">
-                <div className="flex items-center gap-1.5 text-sm text-neutral-500">
-                  <Calendar className="h-4 w-4 text-primary-500" />
-                  {featuredMission.date}
-                </div>
-                <div className="flex items-center gap-1.5 text-sm text-neutral-500">
-                  <MapPin className="h-4 w-4 text-primary-500" />
-                  {featuredMission.location}
-                </div>
-              </div>
-
-              <p className="text-neutral-600 leading-relaxed mb-6 flex-1">
-                {featuredMission.excerpt}
-              </p>
-
-              {/* Highlights */}
-              <ul className="space-y-2 mb-8">
-                {featuredMission.highlights.map((h) => (
-                  <li key={h} className="flex items-start gap-2.5">
-                    <ChevronRight className="h-4 w-4 text-accent-500 shrink-0 mt-0.5" />
-                    <span className="text-sm text-neutral-700">{h}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <a href="#express-interest" className="btn-primary text-sm self-start">
-                Express Interest
-                <ArrowRight className="h-4 w-4" />
-              </a>
-            </div>
-
-            {/* Right — benefits panel */}
-            <div className="bg-primary-600 p-8 lg:p-12 flex flex-col justify-center gap-6">
-              <h4 className="font-display font-semibold text-xl text-white">
-                What you'll gain from the mission
-              </h4>
-              {missionBenefits.map(({ icon: Icon, label }) => (
-                <div key={label} className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center shrink-0">
-                    <Icon className="h-5 w-5 text-white" />
-                  </div>
-                  <p className="text-sm text-primary-100 leading-snug">{label}</p>
-                </div>
-              ))}
-              <div className="mt-4 pt-6 border-t border-primary-500">
-                <p className="text-xs text-primary-200 leading-relaxed">
-                  Space is limited. Selected exporters are invited based on export readiness,
-                  compliance history and commodity portfolio relevance.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── News Grid ──────────────────────────────────────────────────── */}
-      <section className="section-padding bg-neutral-50">
-        <div className="container-theme">
-          <div className="max-w-xl mb-12">
-            <span className="section-label mb-4">Latest News & Events</span>
-            <h2 className="font-display font-bold text-neutral-900">
-              Events, updates and market insights
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {newsItems.map(({ id, title, date, location, excerpt, tag }) => (
-              <article
-                key={id}
-                className="flex flex-col p-6 rounded-xl bg-white border border-border hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 group"
+        ) : (
+          <>
+            {/* ── Featured article ──────────────────────── */}
+            {featured && !validType && (
+              <Link
+                href={`/news/${featured.slug}`}
+                className="group block rounded-2xl overflow-hidden border border-border hover:shadow-xl transition-all duration-300"
               >
-                {/* Tag */}
-                <div className="flex items-center justify-between mb-4">
-                  <span className={`badge ${tagColors[tag] ?? "bg-neutral-100 text-neutral-600"}`}>
-                    {tag}
-                  </span>
-                  <div className="flex items-center gap-1 text-xs text-neutral-400">
-                    <Calendar className="h-3 w-3" />
-                    {date}
+                {/* Cover image */}
+                {featured.imageUrl && (
+                  <div className="h-64 sm:h-80 overflow-hidden bg-neutral-100">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={featured.imageUrl}
+                      alt={featured.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                )}
+                <div className="p-7">
+                  <div className="flex items-center gap-3 mb-3">
+                    {featured.type && (
+                      <span
+                        className="px-2.5 py-0.5 rounded-full text-xs font-bold"
+                        style={{
+                          background: TYPE_BADGE[featured.type]?.bg,
+                          color:      TYPE_BADGE[featured.type]?.text,
+                        }}
+                      >
+                        {TYPE_BADGE[featured.type]?.label}
+                      </span>
+                    )}
+                    <span className="text-xs text-neutral-400">
+                      {featured.publishedAt ? formatDate(featured.publishedAt) : ""}
+                    </span>
+                  </div>
+                  <h2 className="font-display font-bold text-2xl sm:text-3xl text-neutral-900 mb-3 group-hover:text-primary-700 transition-colors">
+                    {featured.title}
+                  </h2>
+                  {featured.excerpt && (
+                    <p className="text-neutral-600 leading-relaxed mb-4">{featured.excerpt}</p>
+                  )}
+                  <div className="flex items-center gap-4 flex-wrap text-sm text-neutral-400">
+                    {featured.eventDate && (
+                      <span className="flex items-center gap-1.5">
+                        <Calendar className="h-4 w-4" />
+                        {formatDate(featured.eventDate)}
+                      </span>
+                    )}
+                    {featured.location && (
+                      <span className="flex items-center gap-1.5">
+                        <MapPin className="h-4 w-4" />
+                        {featured.location}
+                      </span>
+                    )}
+                    <span className="flex items-center gap-1 text-primary-600 font-medium ml-auto">
+                      Read more <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
+                    </span>
                   </div>
                 </div>
-
-                {/* Title */}
-                <h3 className="font-display font-semibold text-lg text-neutral-900 mb-2 group-hover:text-primary-700 transition-colors leading-snug">
-                  {title}
-                </h3>
-
-                {/* Location */}
-                <div className="flex items-center gap-1.5 text-xs text-neutral-400 mb-3">
-                  <MapPin className="h-3 w-3" />
-                  {location}
-                </div>
-
-                {/* Excerpt */}
-                <p className="text-sm text-neutral-500 leading-relaxed flex-1 mb-5">{excerpt}</p>
-
-                {/* Read more */}
-                <div className="flex items-center gap-1 text-xs font-semibold text-primary-600 group-hover:text-primary-800 transition-colors">
-                  Read more
-                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform duration-150" />
-                </div>
-              </article>
-            ))}
-          </div>
-
-          {/* Load more placeholder */}
-          <div className="mt-10 text-center">
-            <button className="btn-outline text-sm px-8 py-2.5">
-              Load more updates
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* ── Press release / gallery placeholder ───────────────────────── */}
-      <section className="section-padding bg-white">
-        <div className="container-theme">
-          <div className="rounded-2xl bg-neutral-900 text-white p-8 lg:p-12 grid grid-cols-1 gap-8 lg:grid-cols-2 lg:items-center">
-            <div>
-              <span className="section-label mb-5 text-accent-400">
-                <span className="block w-6 h-0.5 bg-accent-400" />
-                Press & Media
-              </span>
-              <h2 className="font-display font-bold text-2xl text-white mb-4">
-                Press releases & media enquiries
-              </h2>
-              <p className="text-neutral-400 leading-relaxed mb-6">
-                Journalists, trade publications and media organisations interested in
-                covering Nigerian-EU commodity trade are welcome to contact our communications team.
-              </p>
-              <Link href="/contact" className="btn-accent text-sm px-5 py-2.5">
-                Media enquiries
-                <ArrowRight className="h-4 w-4" />
               </Link>
-            </div>
-            <div className="grid grid-cols-3 gap-3">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div
-                  key={i}
-                  className="aspect-square rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-neutral-600 text-xs"
-                >
-                  Photo {i + 1}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+            )}
 
-      {/* ── Express Interest Form ─────────────────────────────────────── */}
-      <section id="express-interest" className="section-padding bg-neutral-50">
-        <div className="container-theme">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start max-w-4xl mx-auto">
-            <div>
-              <span className="section-label mb-5">Stay Connected</span>
-              <h2 className="font-display font-bold text-2xl text-neutral-900 mb-4">
-                Express interest in upcoming events
-              </h2>
-              <p className="text-neutral-600 leading-relaxed mb-6">
-                Register your interest to be notified about upcoming trade missions,
-                training sessions, buyer–seller meetings and warehouse open days.
-              </p>
-              <div className="space-y-3">
-                {[
-                  "Trade missions to France (annual)",
-                  "Physical training sessions in Kano and Abuja",
-                  "Warehouse open days in Nigeria",
-                  "Buyer–seller matchmaking events",
-                  "Regulatory update briefings (virtual)",
-                ].map((item) => (
-                  <div key={item} className="flex items-center gap-2.5 text-sm text-neutral-600">
-                    <span className="w-2 h-2 rounded-full bg-accent-500 shrink-0" />
-                    {item}
-                  </div>
-                ))}
-              </div>
+            {/* ── Article grid ────────────────────────────── */}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {(validType ? items : remaining).map((item) => {
+                const badge = TYPE_BADGE[item.type ?? "news"];
+                return (
+                  <Link
+                    key={item.id}
+                    href={`/news/${item.slug}`}
+                    className="group flex flex-col rounded-2xl border border-border overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-200"
+                  >
+                    {/* Cover image */}
+                    {item.imageUrl ? (
+                      <div className="h-44 overflow-hidden bg-neutral-100">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={item.imageUrl}
+                          alt={item.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                    ) : (
+                      <div className="h-44 bg-gradient-to-br from-primary-50 to-primary-100 flex items-center justify-center">
+                        <Newspaper className="h-10 w-10 text-primary-200" />
+                      </div>
+                    )}
+
+                    <div className="flex flex-col flex-1 p-5">
+                      {/* Type + date */}
+                      <div className="flex items-center gap-2 mb-3 flex-wrap">
+                        {badge && (
+                          <span
+                            className="px-2 py-0.5 rounded-full text-[11px] font-bold"
+                            style={{ background: badge.bg, color: badge.text }}
+                          >
+                            {badge.label}
+                          </span>
+                        )}
+                        <span className="text-xs text-neutral-400">
+                          {item.publishedAt ? formatDate(item.publishedAt) : ""}
+                        </span>
+                      </div>
+
+                      <h3 className="font-display font-bold text-lg text-neutral-900 mb-2 leading-snug group-hover:text-primary-700 transition-colors line-clamp-2">
+                        {item.title}
+                      </h3>
+
+                      {item.excerpt && (
+                        <p className="text-sm text-neutral-500 leading-relaxed mb-4 line-clamp-2">
+                          {item.excerpt}
+                        </p>
+                      )}
+
+                      <div className="mt-auto space-y-1.5">
+                        {item.eventDate && (
+                          <p className="text-xs text-neutral-400 flex items-center gap-1.5">
+                            <Calendar className="h-3.5 w-3.5" />
+                            {formatDate(item.eventDate)}
+                          </p>
+                        )}
+                        {item.location && (
+                          <p className="text-xs text-neutral-400 flex items-center gap-1.5">
+                            <MapPin className="h-3.5 w-3.5" />
+                            {item.location}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
             </div>
-            <div className="bg-white rounded-2xl border border-border shadow-lg p-8">
-              <h3 className="font-display font-semibold text-xl text-neutral-900 mb-6">
-                Register your interest
-              </h3>
-              <ExpressInterestForm />
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+          </>
+        )}
+      </div>
+    </main>
   );
 }

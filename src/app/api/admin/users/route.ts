@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { eq } from "drizzle-orm";
+import { and, count, desc, eq, ilike, inArray, or } from "drizzle-orm";
 import { db } from "@/db";
 import { users } from "@/db/schema";
 import { getSession } from "@/lib/auth/helpers";
@@ -43,4 +43,68 @@ export async function PATCH(
     }).returning({ id: users.id });
 
   return NextResponse.json({ message: "User created." });
+}
+
+/**
+ *
+ * GET — List users with optional filters.
+ *
+ * Query params:
+ *   role    — filter by role (can be repeated: ?role=exporter&role=farmer)
+ *   q       — search by name or email
+ *   limit   — max results (default 100)
+ *   page    — page number (default 1)
+ */
+export async function GET(req: NextRequest) {
+  const session = await getSession();
+  if (session?.user.role !== "admin") {
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+  }
+
+  const { searchParams } = new URL(req.url);
+
+  // role can be multi-valued: ?role=exporter&role=farmer
+  const roles  = searchParams.getAll("role");
+  const q      = searchParams.get("q")?.trim() ?? "";
+  const limit  = Math.min(parseInt(searchParams.get("limit") ?? "100"), 500);
+  const page   = Math.max(1, parseInt(searchParams.get("page") ?? "1"));
+  const offset = (page - 1) * limit;
+
+  // Build WHERE conditions
+  const conditions: any[] = [];
+
+  if (roles.length > 0) {
+    conditions.push(inArray(users.role, roles as any[]));
+  }
+
+  if (q) {
+    conditions.push(
+      or(
+        ilike(users.name,  `%${q}%`),
+        ilike(users.email, `%${q}%`),
+      )
+    );
+  }
+
+  const where = conditions.length > 0 ? and(...conditions) : undefined;
+
+  const [rows, [{ total }]] = await Promise.all([
+    db
+      .select({
+        id:        users.id,
+        name:      users.name,
+        email:     users.email,
+        role:      users.role,
+        createdAt: users.createdAt,
+      })
+      .from(users)
+      .where(where)
+      .orderBy(desc(users.createdAt))
+      .limit(limit)
+      .offset(offset),
+
+    db.select({ total: count() }).from(users).where(where),
+  ]);
+
+  return NextResponse.json({ users: rows, total, page, limit });
 }
