@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   warehouseReceipts, warehouseReceiptItems,
   users, commodities, receiptItemDocuments,
 } from "@/db/schema";
+
 import { eq, inArray } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -20,6 +21,8 @@ import {
 import { InspectionPanel }              from "@/components/warehouse/InspectionPanel";
 import { ReceiptItemDocumentsPanel }     from "@/components/admin/ReceiptItemDocumentsPanel";
 import { ReceiptItemCertBadge, ReceiptItemCertPill } from "@/components/shared/ReceiptItemCertBadge";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Receipt Detail – Warehouse Admin" };
 

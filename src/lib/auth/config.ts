@@ -3,10 +3,12 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import bcrypt from "bcryptjs";
 import { eq } from "drizzle-orm";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { users } from "@/db/schema";
+
 import type { UserRole } from "./types";
 
+const db = getDb();
 /**
  * NextAuth Configuration
  * ============================================================

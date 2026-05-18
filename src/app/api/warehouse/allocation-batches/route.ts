@@ -1,14 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   warehouseReceiptItems,
   warehouseReceipts,
   users,
   commodities,
 } from "@/db/schema";
+
 import { eq, and, gt, sql } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
 
+const db = getDb();
 /**
  * GET /api/warehouse/allocation-batches
  *

@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { warehouseReceipts, warehouseReceiptItems, commodities, users } from "@/db/schema";
+
 import { eq, and, sql } from "drizzle-orm";
 import { WAREHOUSE_LOCATION_LABELS } from "@/lib/warehouse";
 import { theme } from "@/config/theme";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Stock Overview – Warehouse" };
 

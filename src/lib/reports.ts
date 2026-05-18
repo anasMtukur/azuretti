@@ -7,18 +7,20 @@
  * ══════════════════════════════════════════════════════════════
  */
 
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   users, exporterProfiles, buyerProfiles,
   commodities, warehouseReceipts, warehouseReceiptItems,
   demandRequests, demandQuotes, demandAllocations,
   payments, shipments, commodityPrices,
 } from "@/db/schema";
+
 import {
   eq, and, gte, lte, lt, sql, count,
   sum, avg, desc, inArray, isNotNull,
 } from "drizzle-orm";
 
+const db = getDb();
 // ── Period ─────────────────────────────────────────────────────────────────
 
 export type PeriodMode = "monthly" | "range" | "annual" | "all";

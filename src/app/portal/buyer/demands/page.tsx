@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { demandRequests, buyerProfiles, commodities } from "@/db/schema";
+
 import { eq, desc, and } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import { DEMAND_STATUS_META } from "@/lib/demands";
 import { Plus, Package, FileQuestion } from "lucide-react";
 import DemandsTable from "@/components/demand/DemandsTable";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "My Demands – Buyer Portal" };
 

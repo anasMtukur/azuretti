@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { newsEvents } from "@/db/schema";
+
 import { eq, desc, and } from "drizzle-orm";
 import { Calendar, MapPin, ArrowRight, Newspaper } from "lucide-react";
+
+const db = getDb();
 
 export const metadata: Metadata = {
   title:       "News & Events | Azuretti Service & Distribution",

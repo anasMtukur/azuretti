@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   commodities, warehouseReceipts, warehouseReceiptItems,
   receiptItemDocuments,
 } from "@/db/schema";
+
 import { eq, and, sql, inArray } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -15,6 +16,8 @@ import {
 import { theme } from "@/config/theme";
 import { WAREHOUSE_LOCATION_LABELS } from "@/lib/warehouse";
 import { ReceiptItemCertBadge } from "@/components/shared/ReceiptItemCertBadge";
+
+const db = getDb();
 
 type Category = keyof typeof theme.commodityColors;
 

@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { newsEvents } from "@/db/schema";
+
 import { eq, and, ne, desc } from "drizzle-orm";
 import { Calendar, MapPin, ArrowLeft, ArrowRight, Newspaper } from "lucide-react";
+
+const db = getDb();
 
 interface Props { params: { slug: string } }
 
 // ── Metadata ──────────────────────────────────────────────────────────────
-
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const [item] = await db
     .select({ title: newsEvents.title, excerpt: newsEvents.excerpt, imageUrl: newsEvents.imageUrl })

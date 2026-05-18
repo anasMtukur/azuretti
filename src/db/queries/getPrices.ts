@@ -1,7 +1,10 @@
 import "server-only";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities, commodityPrices } from "@/db/schema";
+
 import { eq, desc } from "drizzle-orm";
+
+const db = getDb();
 
 export async function getPrices() {
   const rows = await db

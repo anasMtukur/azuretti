@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   payments, demandRequests, demandAllocations,
   commodities, users, buyerProfiles,
 } from "@/db/schema";
+
 import { eq, desc, count, sql } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import { PAYMENT_METHODS, SETTLEMENT_STATUS_META } from "@/lib/payments";
@@ -15,11 +16,12 @@ import {
   ExternalLink, FileImage,
 } from "lucide-react";
 
+const db = getDb();
+
 export const metadata: Metadata = { title: "Finance & Settlement – Admin" };
 
 export default async function AdminFinancePage() {
   await requireRole(["admin"]);
-
   // All payment records
   const allPayments = await db
     .select({

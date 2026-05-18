@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { demandRequests, buyerProfiles } from "@/db/schema";
+
 import { eq, desc, count } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
 import { generateDemandRef } from "@/lib/demands";
+
+const db = getDb();
 
 const createSchema = z.object({
   commodityId:         z.string().uuid(),

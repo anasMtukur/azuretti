@@ -1,11 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   demandRequests, demandQuotes, buyerProfiles,
   commodities, demandAllocations,
 } from "@/db/schema";
+
 import { eq, and } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
+
+const db = getDb();
 
 export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   const session = await getSession();

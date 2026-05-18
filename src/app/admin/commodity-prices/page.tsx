@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities, commodityPrices } from "@/db/schema";
+
 import { eq, desc } from "drizzle-orm";
 import { CommodityPricesForm, LatestPrice } from "@/components/admin/CommodityPricesForm";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Commodity Prices – Admin" };
 
 export default async function AdminCommodityPricesPage() {
   await requireRole(["admin"]);
-
+  
   // All active commodities
   const allCommodities = await db
     .select({

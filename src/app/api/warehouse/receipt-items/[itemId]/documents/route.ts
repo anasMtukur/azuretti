@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { receiptItemDocuments, warehouseReceiptItems, warehouseReceipts } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
+
+const db = getDb();
  
 const createSchema = z.object({
   docType:       z.enum([

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "next lint --no-cache",
     "db:setup": "npx tsx scripts/setup-db.ts",
     "db:seed": "npx tsx scripts/seed.ts",
     "db:generate": "npx drizzle-kit generate",

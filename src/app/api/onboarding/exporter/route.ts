@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { exporterProfiles } from "@/db/schema";
+
 import { getSession } from "@/lib/auth/helpers";
+
+const db = getDb();
 
 const schema = z.object({
   companyName:           z.string().min(2),

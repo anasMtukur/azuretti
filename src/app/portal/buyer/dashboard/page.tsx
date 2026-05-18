@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   buyerProfiles, commodities, warehouseReceipts,
   warehouseReceiptItems, buyerDemands,
 } from "@/db/schema";
+
 import { eq, and, inArray, sql, count } from "drizzle-orm";
 import { CommoditySearchBar } from "@/components/buyer/CommoditySearchBar";
 import { FeaturedCommodityCard } from "@/components/buyer/FeaturedCommodityCard";
 import { OnboardingBanner }      from "@/components/onboarding/OnboardingBanner";
 import { Package, Ship, FileText, ArrowRight, Sparkles } from "lucide-react";
 import Link from "next/link";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Dashboard – Buyer Portal" };
 

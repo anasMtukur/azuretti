@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   demandRequests, buyerProfiles, commodities, users,
 } from "@/db/schema";
+
 import { eq, desc, and, count, or } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import { DEMAND_STATUS_META, CONTAINER_SIZES } from "@/lib/demands";
 import { Package, FileQuestion, Clock, CheckCircle2, Layers } from "lucide-react";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Demands & RFQs – Admin" };
 
@@ -27,7 +30,6 @@ interface Props {
 
 export default async function AdminDemandsPage({ searchParams }: Props) {
   await requireRole(["admin"]);
-
   const activeStatus = searchParams.status ?? "all";
   const typeFilter   = searchParams.type   ?? "all"; // "demand" | "rfq" | "all"
 

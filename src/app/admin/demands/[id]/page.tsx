@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   demandRequests, demandQuotes, buyerProfiles,
   commodities, users, demandAllocations,
@@ -8,11 +8,12 @@ import {
   shipments,
   Payment,
 } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
-  ArrowLeft, CheckCircle2, FileText, Tag, MapPin,
+  ArrowLeft, FileText, Tag, MapPin,
   MessageSquare, ExternalLink,
   Ship,
 } from "lucide-react";
@@ -24,13 +25,14 @@ import { PaymentConfirmForm } from "@/components/admin/PaymentConfirmForm";
 import DemandStatusTimeline from "@/components/demand/DemandStatusTimeline";
 import { InitiateShipmentForm } from "@/components/admin/InitiateShipmentForm";
 
+const db = getDb();
+
 export const metadata: Metadata = { title: "Demand Detail – Admin" };
 
 interface Props { params: { id: string } }
 
 export default async function AdminDemandDetailPage({ params }: Props) {
   await requireRole(["admin"]);
-
   const [row] = await db
     .select({
       demand:            demandRequests,

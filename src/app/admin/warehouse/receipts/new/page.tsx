@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { users, commodities } from "@/db/schema";
+
 import { eq, or } from "drizzle-orm";
 import { NewReceiptForm } from "@/components/warehouse/NewReceiptForm";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Log New Receipt – Warehouse" };
 

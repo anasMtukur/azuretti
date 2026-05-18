@@ -15,15 +15,18 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   payments,
   demandRequests,
   demandAllocations,
 } from "@/db/schema";
+
 import { eq, count } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
 import { generatePaymentRef } from "@/lib/payments";
+
+const db = getDb();
 
 const schema = z.object({
   demandId:           z.string().uuid(),

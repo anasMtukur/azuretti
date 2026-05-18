@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   shipments, shipmentDocuments, shipmentStatusEvents,
   demandRequests, buyerProfiles, commodities, users,
 } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -21,6 +22,8 @@ import type {
 } from "@/components/shared/ShipmentStatusTracker";
 import { ShipmentStatusLogger }    from "@/components/admin/ShipmentStatusLogger";
 import { ShipmentDocumentsPanel }  from "@/components/admin/ShipmentDocumentsPanel";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Shipment – Admin" };
 

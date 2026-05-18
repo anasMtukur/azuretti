@@ -1,8 +1,11 @@
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
+
 import { theme } from "@/config/theme";
+
+const db = getDb();
 
 const categoryLabels: Record<string, string> = {
   pulses: "Pulses",

@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { warehouseReceipts, warehouseReceiptItems, users, commodities } from "@/db/schema";
+
 import { eq, and } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
 
+const db = getDb();
 // ── GET /api/warehouse/receipts/[id] ──────────────────────────────────────
 export async function GET(
   _req: NextRequest,

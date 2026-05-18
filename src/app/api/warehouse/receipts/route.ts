@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { warehouseReceipts, warehouseReceiptItems, users, commodities } from "@/db/schema";
+
 import { eq, desc, count, and, or } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
 import { generateReceiptRef, toMetricTonnes } from "@/lib/warehouse";
 
+const db = getDb();
 // ── Validation schema ──────────────────────────────────────────────────────
 const itemSchema = z.object({
   commodityId:     z.string().uuid(),

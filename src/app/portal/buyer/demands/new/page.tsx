@@ -1,11 +1,14 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { DemandForm } from "@/components/buyer/DemandForm";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Place Demand – Buyer Portal" };
 

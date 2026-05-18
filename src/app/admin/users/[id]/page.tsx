@@ -1,9 +1,12 @@
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { users } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { AdminUserForm } from "@/components/admin/AdminUserForm";
+
+const db = getDb();
 
 export const metadata = { title: "Edit User – Admin" };
 

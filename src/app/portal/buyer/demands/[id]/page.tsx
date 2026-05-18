@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   demandRequests, demandQuotes, buyerProfiles,
   commodities, shipments, shipmentDocuments,
 } from "@/db/schema";
+
 import { eq, and } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -20,6 +21,8 @@ import {
 } from "@/components/shared/ShipmentStatusTracker";
 import type { ShipmentStatus } from "@/components/shared/ShipmentStatusTracker";
 import { cn } from "@/lib/utils";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Demand Detail – Buyer Portal" };
 

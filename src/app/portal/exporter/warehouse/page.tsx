@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { warehouseReceipts, warehouseReceiptItems, commodities } from "@/db/schema";
+
 import { eq, desc, and, sql, count } from "drizzle-orm";
 import { getCurrentUser } from "@/lib/auth/helpers";
 import { RECEIPT_STATUS_META, WAREHOUSE_LOCATION_LABELS } from "@/lib/warehouse";
 import { formatDate } from "@/lib/utils";
 import { Warehouse, Package, TrendingUp, Clock } from "lucide-react";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "My Warehouse – Exporter Portal" };
 

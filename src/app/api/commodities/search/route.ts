@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities, warehouseReceipts, warehouseReceiptItems } from "@/db/schema";
+
 import { eq, ilike, or, and, sql, inArray } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
 
+const db = getDb();
 /**
  * GET /api/commodities/search
  *

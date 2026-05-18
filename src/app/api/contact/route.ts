@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { contactSubmissions } from "@/db/schema";
+
+const db = getDb();
 
 const schema = z.object({
   name:    z.string().min(2),

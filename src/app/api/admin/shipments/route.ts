@@ -7,11 +7,14 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { shipments, demandRequests, payments } from "@/db/schema";
+
 import { eq, count, desc } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
 import { generateShipmentRef } from "@/lib/payments";
+
+const db = getDb();
 
 const createSchema = z.object({
   demandId:         z.string().uuid(),

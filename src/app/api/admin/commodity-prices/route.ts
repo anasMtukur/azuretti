@@ -12,11 +12,13 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodityPrices, commodities } from "@/db/schema";
+
 import { eq, desc, and } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
 
+const db = getDb();
 // ── Validation ─────────────────────────────────────────────────────────────
 
 const entrySchema = z.object({

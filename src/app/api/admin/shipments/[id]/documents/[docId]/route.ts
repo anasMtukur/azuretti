@@ -2,8 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth/helpers";
 import { eq } from "drizzle-orm";
 import { deleteFile, parseStoredUrl } from "@/lib/storage";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { shipmentDocuments } from "@/db/schema";
+
+const db = getDb();
 
 export async function DELETE(
   req: NextRequest,

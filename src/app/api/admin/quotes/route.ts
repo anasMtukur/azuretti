@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { demandQuotes, demandRequests } from "@/db/schema";
+
 import { eq, count } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
 import { generateQuoteRef } from "@/lib/demands";
+
+const db = getDb();
 
 const quoteSchema = z.object({
   demandId:       z.string().uuid(),

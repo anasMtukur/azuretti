@@ -7,11 +7,12 @@
 
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   shipments, shipmentDocuments, demandRequests,
   buyerProfiles, commodities,
 } from "@/db/schema";
+
 import { eq, and } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import Link from "next/link";
@@ -21,6 +22,8 @@ import {
 } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import { SHIPMENT_DOC_TYPES } from "@/lib/payments";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Shipment – Buyer Portal" };
 

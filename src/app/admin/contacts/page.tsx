@@ -1,10 +1,13 @@
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { contactSubmissions } from "@/db/schema";
+
 import { count, eq, ilike, or, and } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { UserPlus, Search, MailOpen, LucideEye } from "lucide-react";
+
+const db = getDb();
 
 export const metadata = { title: "Contacts – Admin" };
 
@@ -26,7 +29,6 @@ const PAGE_SIZE = 20;
 
 export default async function AdminContactsPage({ searchParams }: Props) {
   await requireRole(["admin"]);
-
   const roleFilter = ROLES.includes(searchParams.role as any) && searchParams.role !== "all"
     ? searchParams.role as typeof ROLES[number]
     : undefined;

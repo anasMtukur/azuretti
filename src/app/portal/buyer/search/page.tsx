@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities, warehouseReceipts, warehouseReceiptItems } from "@/db/schema";
+
 import { eq, and, ilike, inArray, or, sql } from "drizzle-orm";
 import { FeaturedCommodityCard } from "@/components/buyer/FeaturedCommodityCard";
 import { CommoditySearchBar } from "@/components/buyer/CommoditySearchBar";
 import { Search, SlidersHorizontal } from "lucide-react";
 import Link from "next/link";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Search Commodities – Buyer Portal" };
 

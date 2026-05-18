@@ -1,11 +1,14 @@
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { Plus, Pencil } from "lucide-react";
 import { theme } from "@/config/theme";
+
+const db = getDb();
 
 export const metadata = { title: "Commodities – Admin" };
 
@@ -13,7 +16,6 @@ type Category = keyof typeof theme.commodityColors;
 
 export default async function AdminCommoditiesPage() {
   await requireRole(["admin"]);
-
   const allCommodities = await db
     .select()
     .from(commodities)

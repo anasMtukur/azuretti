@@ -1,16 +1,18 @@
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { users, commodities, shipments, contactSubmissions } from "@/db/schema";
+
 import { count, eq } from "drizzle-orm";
 import { Users, Package, Ship, MessageSquare, UserCheck, AlertCircle } from "lucide-react";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 
+const db = getDb();
+
 export const metadata = { title: "Admin Dashboard – Azuretti" };
 
 export default async function AdminDashboardPage() {
   await requireRole(["admin"]);
-
   // Parallel DB queries for stats
   const [
     [{ total: totalUsers }],

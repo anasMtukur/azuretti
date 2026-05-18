@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { newsEvents } from "@/db/schema";
+
 import { desc } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import { NewsPublishToggle } from "@/components/admin/NewsPublishToggle";
 import { NewsDeleteButton }  from "@/components/admin/NewsDeleteButton";
 import { Plus, Newspaper, Calendar, Globe } from "lucide-react";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "News & Events – Admin" };
 
@@ -19,7 +22,6 @@ const TYPE_META: Record<string, { label: string; bg: string; text: string }> = {
 
 export default async function AdminNewsPage() {
   await requireRole(["admin"]);
-
   const items = await db
     .select()
     .from(newsEvents)

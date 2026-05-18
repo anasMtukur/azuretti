@@ -1,8 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
+
 import { getSession } from "@/lib/auth/helpers";
+
+const db = getDb();
 
 const schema = z.object({
   name:             z.string().min(2),
@@ -24,6 +27,7 @@ async function requireAdmin() {
 }
 
 export async function POST(req: NextRequest) {
+  
   if (!(await requireAdmin()))
     return NextResponse.json({ error: "Forbidden" }, { status: 403 });
 

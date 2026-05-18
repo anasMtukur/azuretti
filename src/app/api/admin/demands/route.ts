@@ -1,10 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   demandRequests, buyerProfiles, commodities, users
 } from "@/db/schema";
+
 import { eq, desc, and, count } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
+
+const db = getDb();
 
 export async function GET(req: NextRequest) {
   const session = await getSession();

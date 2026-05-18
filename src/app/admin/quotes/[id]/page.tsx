@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   demandQuotes, demandRequests, buyerProfiles,
   commodities, users,
 } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
@@ -12,6 +13,8 @@ import Link from "next/link";
 import { formatDate } from "@/lib/utils";
 import { QTY_LOCK_META, DEMAND_STATUS_META } from "@/lib/demands";
 import { QuoteForm } from "@/components/admin/QuoteForm";
+
+const db = getDb();
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   if (params.id === "new") return { title: "Issue Quote – Admin" };

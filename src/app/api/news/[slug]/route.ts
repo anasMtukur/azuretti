@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { newsEvents } from "@/db/schema";
+
 import { eq, and } from "drizzle-orm";
+
+const db = getDb();
 
 export async function GET(_req: NextRequest, { params }: { params: { slug: string } }) {
   const [item] = await db

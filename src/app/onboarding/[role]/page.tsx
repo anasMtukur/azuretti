@@ -1,6 +1,9 @@
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
+
 import OnboardingForm from "@/components/onboarding/OnboardingForm";
+
+const db = getDb();
 
 export default async function Page({ params }: { params: { role: string } }) {
   const commodityOptions = await db

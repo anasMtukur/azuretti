@@ -1,7 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { newsEvents } from "@/db/schema";
+
 import { eq, desc, and } from "drizzle-orm";
+
+const db = getDb();
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);

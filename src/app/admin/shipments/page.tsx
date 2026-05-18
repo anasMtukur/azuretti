@@ -1,16 +1,19 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   shipments, demandRequests, buyerProfiles,
   commodities, users,
 } from "@/db/schema";
+
 import { eq, desc } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import { ShipmentStatusBadge } from "@/components/shared/ShipmentStatusTracker";
 import type { ShipmentStatus } from "@/components/shared/ShipmentStatusTracker";
 import { Ship, Plus } from "lucide-react";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Shipments – Admin" };
 

@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { eq } from "drizzle-orm";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { users } from "@/db/schema";
+
 import { hashPassword } from "@/lib/auth/helpers";
+
+const db = getDb();
 
 const registerSchema = z.object({
   name:     z.string().min(2, "Name must be at least 2 characters"),

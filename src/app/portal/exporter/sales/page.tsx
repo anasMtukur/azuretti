@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import { getCurrentUser } from "@/lib/auth/helpers";
 import { redirect } from "next/navigation";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { demandAllocations, demandRequests, commodities } from "@/db/schema";
+
 import { eq, desc } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import { SETTLEMENT_STATUS_META } from "@/lib/payments";
 import { TrendingUp, Package, DollarSign, CheckCircle2 } from "lucide-react";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "My Sales – Exporter Portal" };
 

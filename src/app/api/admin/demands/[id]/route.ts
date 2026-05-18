@@ -1,7 +1,10 @@
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { demandRequests } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { NextRequest, NextResponse } from "next/server";
+
+const db = getDb();
 
 export async function PATCH(req: NextRequest, { params }: { params: { id: string } }) {
   // Admin can update: status, adminNotes

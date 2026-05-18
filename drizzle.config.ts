@@ -1,7 +1,7 @@
 import type { Config } from "drizzle-kit";
 import { config } from "dotenv";
 
-config({ path: ".env.local" });
+config();
 
 const DB_SCHEMA = process.env.DB_SCHEMA ?? "azuretti";
 

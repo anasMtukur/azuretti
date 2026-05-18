@@ -1,12 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { warehouseReceipts, warehouseReceiptItems, users } from "@/db/schema";
+
 import { eq, desc, count, and, sql } from "drizzle-orm";
 import { requireRole } from "@/lib/auth/helpers";
 import { formatDate, formatWeight } from "@/lib/utils";
 import { RECEIPT_STATUS_META, WAREHOUSE_LOCATION_LABELS } from "@/lib/warehouse";
 import { Plus, Warehouse, Package } from "lucide-react";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Warehouse Receipts – Admin" };
 

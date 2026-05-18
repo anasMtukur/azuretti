@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { AdminCommodityForm } from "@/components/admin/AdminCommodityForm";
+
+const db = getDb();
 
 interface Props {
   params: { id: string };

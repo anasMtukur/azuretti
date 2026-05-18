@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
+
 import { ArrowRight } from "lucide-react";
 import { theme } from "@/config/theme";
+
+const db = getDb();
 
 export const dynamic = "force-dynamic";
 export const metadata: Metadata = {

@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { getCurrentUser } from "@/lib/auth/helpers";
 import { redirect, notFound } from "next/navigation";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import {
   warehouseReceipts, warehouseReceiptItems,
   users, commodities, receiptItemDocuments,
 } from "@/db/schema";
+
 import { eq, and, inArray } from "drizzle-orm";
 import Link from "next/link";
 import {
@@ -17,6 +18,8 @@ import {
   formatRawQty, type ReceiptStatus,
 } from "@/lib/warehouse";
 import { ReceiptItemCertBadge, ReceiptItemCertPill } from "@/components/shared/ReceiptItemCertBadge";
+
+const db = getDb();
 
 export const metadata: Metadata = { title: "Receipt Details – My Warehouse" };
 

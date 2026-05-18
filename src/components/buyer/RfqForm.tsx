@@ -1,6 +1,9 @@
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
+
 import { DemandForm } from "./DemandForm";
+
+const db = getDb();
 
 export default async function QuoteForm() {
     const commoditiesList = await db

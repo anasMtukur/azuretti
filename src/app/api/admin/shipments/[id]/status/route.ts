@@ -7,10 +7,13 @@
 
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { shipments, shipmentStatusEvents } from "@/db/schema";
+
 import { eq } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
+
+const db = getDb();
 
 const schema = z.object({
   status:    z.enum(["booked", "loaded", "in_transit", "delivered", "cancelled"]),

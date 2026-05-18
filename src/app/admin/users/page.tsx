@@ -1,10 +1,13 @@
 import { requireRole } from "@/lib/auth/helpers";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { users } from "@/db/schema";
+
 import { and, count, eq, ilike, or } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { UserPlus, Search } from "lucide-react";
+
+const db = getDb();
 
 export const metadata = { title: "Users – Admin" };
 

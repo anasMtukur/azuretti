@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-import { db } from "@/db";
+import { getDb } from "@/db";
 import { warehouseReceipts, warehouseReceiptItems, commodities, users } from "@/db/schema";
+
 import { eq, and, sql, sum } from "drizzle-orm";
 import { getSession } from "@/lib/auth/helpers";
 
+const db = getDb();
 /**
  * GET /api/warehouse/stock
  * Returns aggregated stock summary:
