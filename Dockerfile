@@ -11,15 +11,15 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-ENV DATABASE_URL="postgresql://azuretti_db_user:8geW&3DzEFjJBFtW:W3<@postgresql:5432/azuretti_db?search_path=public"
 RUN npm run build
 
 # 5. MIGRATOR (db-init only)
 FROM node:20-alpine AS migrator
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
+COPY package.json ./
 COPY drizzle.config.ts ./
-COPY drizzle/ ./drizzle/
+COPY scripts/ ./scripts/ 
 COPY src/db/ ./src/db/
 CMD ["npm", "run", "db:setup"]
 
