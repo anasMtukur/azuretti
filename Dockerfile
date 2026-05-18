@@ -14,6 +14,15 @@ COPY . .
 ENV DATABASE_URL="postgresql://azuretti_db_user:8geW&3DzEFjJBFtW:W3<@postgresql:5432/azuretti_db?search_path=public"
 RUN npm run build
 
+# 5. MIGRATOR (db-init only)
+FROM node:20-alpine AS migrator
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY drizzle.config.ts ./
+COPY drizzle/ ./drizzle/
+COPY src/db/ ./src/db/
+CMD ["npm", "run", "db:setup"]
+
 # 3. RUNTIME (PRODUCTION DEFAULT)
 # Docker defaults to this stage if no target is specified
 FROM node:20-alpine AS runner
