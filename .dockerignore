@@ -2,8 +2,8 @@ node_modules
 .next
 .git
 .env*
-Dockerfile
-docker-compose.yml
+Dockerfile*
+docker-compose*
 README.md
 out
 build

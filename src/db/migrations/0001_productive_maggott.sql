@@ -1,0 +1,1 @@
+ALTER TABLE "commodity_prices" ADD COLUMN "price_change" text;

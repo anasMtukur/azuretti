@@ -17,7 +17,7 @@ dist/
 .env.production.local
 
 # Drizzle
-src/db/migrations/*.sql
+# src/db/migrations/*.sql
 
 # Debug
 npm-debug.log*
