@@ -5,6 +5,7 @@ import { commodities } from "@/db/schema";
 
 import { ArrowRight } from "lucide-react";
 import { theme } from "@/config/theme";
+import { HeroSubSection } from "@/components/website/sections/HeroSubSection";
 
 const db = getDb();
 
@@ -54,29 +55,12 @@ export default async function Page({ searchParams }: CommoditiesPageProps) {
 
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="bg-gradient-hero pt-48 pb-16 relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div className="container-theme relative z-10">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-6">
-            Exportable Commodities
-          </span>
-          <h1 className="font-display font-bold text-white mb-4">
-            EU-ready Nigerian commodities
-          </h1>
-          <p className="text-primary-200 text-lg max-w-2xl leading-relaxed">
-            Every product in our portfolio is fully vetted, quality-tested by accredited
-            laboratories and documented for the European market.
-          </p>
-        </div>
-      </section>
+      <HeroSubSection
+        type="commodities"
+        tagText="Exportable Commodities"
+        title="EU-ready Nigerian commodities"
+        description="Every product in our portfolio is fully vetted, quality-tested by accredited laboratories and documented for the European market."
+      />
 
       {/* ── Grid + Filter ────────────────────────────────────────── */}
       <section className="section-padding bg-white">

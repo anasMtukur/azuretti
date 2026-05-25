@@ -5,6 +5,7 @@ import { newsEvents } from "@/db/schema";
 
 import { eq, desc, and } from "drizzle-orm";
 import { Calendar, MapPin, ArrowRight, Newspaper } from "lucide-react";
+import { HeroSubSection } from "@/components/website/sections/HeroSubSection";
 
 const db = getDb();
 
@@ -71,21 +72,12 @@ export default async function NewsPage({ searchParams }: Props) {
 
   return (
     <main className="min-h-screen bg-white">
-      {/* ── Hero ────────────────────────────────────────── */}
-      <section className="bg-gradient-to-br from-primary-950 to-primary-800  pt-48 pb-20 px-4">
-        <div className="max-w-5xl mx-auto text-center">
-          <p className="text-accent-400 text-xs font-bold uppercase tracking-widest mb-4">
-            Stay informed
-          </p>
-          <h1 className="font-display font-bold text-4xl sm:text-5xl text-white mb-4">
-            News & Events
-          </h1>
-          <p className="text-primary-200 text-lg max-w-2xl mx-auto">
-            The latest updates from the Azuretti Trade House — export news,
-            trade missions and industry events from Nigeria and Europe.
-          </p>
-        </div>
-      </section>
+      <HeroSubSection
+        type="news"
+        tagText="Stay informed"
+        title="News & Events"
+        description="The latest updates from the Azuretti Trade House — export news, trade missions and industry events from Nigeria and Europe."
+      />
 
       {/* ── Filter tabs ─────────────────────────────────── */}
       <div className="border-b border-border bg-white sticky top-0 z-10">

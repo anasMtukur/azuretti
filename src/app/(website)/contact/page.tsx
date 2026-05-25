@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/website/ContactForm";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { theme } from "@/config/theme";
+import { HeroSubSection } from "@/components/website/sections/HeroSubSection";
 
 export const metadata: Metadata = {
   title: "Contact Azuretti",
@@ -12,29 +13,12 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      {/* Hero */}
-      <section className="bg-gradient-hero pt-44 pb-16 relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div className="container-theme relative z-10">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-6">
-            Contact Us
-          </span>
-          <h1 className="font-display font-bold text-white mb-4">
-            Let's start the conversation
-          </h1>
-          <p className="text-primary-200 text-lg max-w-xl leading-relaxed">
-            Our team in Nigeria and France is ready to guide you — whether
-            you're an exporter, buyer, investor or institution.
-          </p>
-        </div>
-      </section>
+      <HeroSubSection
+        type="contact"
+        tagText="Contact Us"
+        title="Let's start the conversation"
+        description="Our team in Nigeria and France is ready to guide you — whether you're an exporter, buyer, investor or institution."
+      />
 
       {/* Main content */}
       <section className="section-padding bg-white">

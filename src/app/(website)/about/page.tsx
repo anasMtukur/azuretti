@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Target, Eye, Heart, Warehouse } from "lucide-react";
 import { theme } from "@/config/theme";
+import { HeroSubSection } from "@/components/website/sections/HeroSubSection";
 
 export const metadata: Metadata = {
   title: "About Azuretti",
@@ -66,29 +67,12 @@ export default function AboutPage() {
   return (
     <>
       {/* Hero */}
-      <section className="bg-gradient-hero pt-48 pb-20 relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div className="container-theme relative z-10 text-center">
-          <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-6">
-            About Azuretti
-          </span>
-          <h1 className="font-display font-bold text-white mb-5">
-            Bridging Nigeria and Europe<br />through compliant trade
-          </h1>
-          <p className="text-lg text-primary-200 max-w-2xl mx-auto leading-relaxed">
-            Azuretti Service is a registered French-Nigerian company dedicated to
-            strengthening trade between West Africa and Europe through a professionally
-            managed Nigerian Export Trade House in France.
-          </p>
-        </div>
-      </section>
+      <HeroSubSection
+        type="about"
+        tagText="About Azuretti"
+        title={<>Bridging Nigeria and Europe<br />through compliant trade</>}
+        description="Azuretti Service is a registered French-Nigerian company dedicated to strengthening trade between West Africa and Europe through a professionally managed Nigerian Export Trade House in France."
+      />
 
       {/* Who We Are */}
       <section className="section-padding bg-white">

@@ -46,3 +46,6 @@ next-env.d.ts
 #Docker
 docker-compose.override.yml
 
+# OpenAI Codex
+.codex/
+

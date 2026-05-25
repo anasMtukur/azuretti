@@ -67,6 +67,9 @@ export default withAuth(
         // API routes that don't need auth
         if (pathname.startsWith("/api/auth/")) return true;
 
+        // API routes that don't need auth
+        if (pathname.startsWith("/api/commodity-prices")) return true;
+
         // Protected routes require a token
         return !!token;
       },

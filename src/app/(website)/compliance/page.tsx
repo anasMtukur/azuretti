@@ -12,6 +12,7 @@ import {
   Download,
   Scale,
 } from "lucide-react";
+import { HeroSubSection } from "@/components/website/sections/HeroSubSection";
 
 export const metadata: Metadata = {
   title: "Compliance & Certification – Azuretti",
@@ -109,38 +110,12 @@ const processStages = [
 export default function CompliancePage() {
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative pt-40 pb-20 bg-gradient-hero overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div
-          className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full opacity-10 -translate-x-1/3 -translate-y-1/3"
-          style={{ background: "radial-gradient(circle, #4fba81, transparent 70%)" }}
-          aria-hidden="true"
-        />
-        <div className="container-theme relative z-10">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-6">
-              <ShieldCheck className="h-3.5 w-3.5 text-accent-400" />
-              Compliance & Certification
-            </div>
-            <h1 className="font-display font-bold text-white mb-5">
-              Every shipment is traceable,<br />verified and documented
-            </h1>
-            <p className="text-lg text-primary-200 leading-relaxed">
-              Azuretti ensures that every product passing through the Nigerian Export
-              Trade House is aligned with European Union regulations on food safety,
-              labelling and packaging — without exception.
-            </p>
-          </div>
-        </div>
-      </section>
+      <HeroSubSection
+        type="compliance"
+        tagText="Compliance & Certification"
+        title={<>Every shipment is traceable,<br />verified and documented</>}
+        description="Azuretti ensures that every product passing through the Nigerian Export Trade House is aligned with European Union regulations on food safety, labelling and packaging — without exception."
+      />
 
       {/* ── Compliance Approach ────────────────────────────────────────── */}
       <section className="section-padding bg-white">
