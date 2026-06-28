@@ -13,6 +13,7 @@ import {
   Banknote,
 } from "lucide-react";
 import { TrainingRegistrationForm } from "@/components/website/TrainingRegistrationForm";
+import TradeMissionSection from "@/components/website/TradeMissionSection";
 
 export const metadata: Metadata = {
   title: "Training & Capacity Building – Azuretti",
@@ -122,20 +123,20 @@ export default function TrainingPage() {
         />
 
         <div className="container-theme relative z-10">
-          <div className="max-w-2xl">
+          <div className="max-w-full">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-6">
               <BookOpen className="h-3.5 w-3.5 text-accent-400" />
               Training & Capacity Building
             </div>
-            <h1 className="font-display font-bold text-white mb-5">
-              Export to Europe with knowledge and confidence
-            </h1>
+            <h2 className="font-display font-bold text-white mb-5">
+              Build your export capacity for European markets
+            </h2>
             <p className="text-lg text-primary-200 leading-relaxed mb-10">
               Azuretti provides virtual and in-person training for Nigerian exporters,
               farmers and trade partners — covering EU regulations, documentation and
               the practical realities of commodity export.
             </p>
-            <div className="flex flex-wrap gap-3">
+            {/* <div className="flex flex-wrap gap-3">
               <a href="#sessions" className="btn-accent text-base px-7 py-3.5">
                 View upcoming sessions
                 <ArrowRight className="h-4 w-4" />
@@ -146,8 +147,20 @@ export default function TrainingPage() {
               >
                 Register interest
               </a>
-            </div>
+            </div> */}
           </div>
+        </div>
+        {/* Bottom Right Peaking Image Asset */}
+        <div className="absolute right-0 bottom-0 w-72 h-72 md:w-96 md:h-96 z-0 pointer-events-none select-none select-none opacity-25 mix-blend-lighten">
+          <img 
+            src="/images/hero-peak.png" 
+            alt="" 
+            className="w-full h-full object-contain object-right-bottom"
+          />
+          {/* Soft fading gradient masking to blend smoothly into the core blue backgrounds */}
+          <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-transparent left-0 top-0" style={{
+            background: 'linear-gradient(to top right, transparent 20%, var(--tw-gradient-from, #020617) 90%)'
+          }} />
         </div>
       </section>
 
@@ -172,7 +185,7 @@ export default function TrainingPage() {
                 access to Azuretti's exporter network.
               </p>
 
-              {/* Format cards */}
+              {/* Format cards 
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <div className="p-5 rounded-xl border border-border bg-neutral-50">
                   <div className="flex items-center gap-2.5 mb-3">
@@ -198,7 +211,7 @@ export default function TrainingPage() {
                     2 weeks · Kano or Abuja
                   </div>
                 </div>
-              </div>
+              </div>*/}
             </div>
 
             {/* Right — why train with us */}
@@ -233,139 +246,9 @@ export default function TrainingPage() {
         </div>
       </section>
 
-      {/* ── Curriculum ────────────────────────────────────────────────── */}
-      <section className="section-padding bg-neutral-50">
-        <div className="container-theme">
-          <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="section-label mb-4 justify-center">Programme Curriculum</span>
-            <h2 className="font-display font-bold text-neutral-900">
-              4 modules covering the full export journey
-            </h2>
-            <p className="text-neutral-600 mt-3 leading-relaxed">
-              Each module combines regulatory knowledge with real-world case
-              studies from Azuretti's own export operations.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            {curriculum.map(({ module, title, topics }) => (
-              <div key={module} className="p-7 rounded-xl bg-white border border-border">
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-10 h-10 rounded-full bg-primary-600 flex items-center justify-center shrink-0">
-                    <span className="font-display font-bold text-white text-sm">{module}</span>
-                  </div>
-                  <h3 className="font-display font-semibold text-lg text-neutral-900">{title}</h3>
-                </div>
-                <ul className="space-y-2.5">
-                  {topics.map((topic) => (
-                    <li key={topic} className="flex items-start gap-2.5">
-                      <span className="w-1.5 h-1.5 rounded-full bg-accent-500 mt-1.5 shrink-0" />
-                      <span className="text-sm text-neutral-600 leading-snug">{topic}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ── Upcoming Sessions ──────────────────────────────────────────── */}
-      <section id="sessions" className="section-padding bg-white">
-        <div className="container-theme">
-          <div className="max-w-xl mb-12">
-            <span className="section-label mb-4">Locations & Dates</span>
-            <h2 className="font-display font-bold text-neutral-900">
-              Upcoming training sessions
-            </h2>
-            <p className="text-neutral-600 mt-3 leading-relaxed">
-              Physical sessions run for 2 weeks at our offices in Kano and Abuja.
-              The virtual programme runs on a rolling intake — register and begin when you're ready.
-            </p>
-          </div>
+      <TradeMissionSection />
 
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
-            {upcomingSessions.map(({ type, location, venue, month, price, spots, flag }) => (
-              <div
-                key={`${type}-${location}`}
-                className={`p-7 rounded-2xl flex flex-col gap-5 ${
-                  type === "physical"
-                    ? "bg-primary-600 text-white"
-                    : "bg-neutral-900 text-white"
-                }`}
-              >
-                {/* Header */}
-                <div className="flex items-center gap-2.5">
-                  <span className="text-2xl">{flag}</span>
-                  <div>
-                    <p className="font-display font-bold text-lg leading-tight">{location}</p>
-                    <p className="text-xs opacity-70 capitalize">{type} class</p>
-                  </div>
-                </div>
-
-                {/* Details */}
-                <div className="space-y-2.5 flex-1">
-                  <div className="flex items-start gap-2">
-                    <MapPin className="h-4 w-4 opacity-60 shrink-0 mt-0.5" />
-                    <span className="text-xs opacity-80 leading-snug">{venue}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 opacity-60 shrink-0" />
-                    <span className="text-xs opacity-80">{month}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 opacity-60 shrink-0" />
-                    <span className="text-xs opacity-80">{spots}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Banknote className="h-4 w-4 opacity-60 shrink-0" />
-                    <span className="text-sm font-bold">{price}</span>
-                  </div>
-                </div>
-
-                {/* CTA */}
-                <a href="#register" className="flex items-center justify-center gap-2 px-4 py-2.5 rounded bg-white/15 border border-white/20 text-sm font-semibold hover:bg-white/25 transition-colors duration-150">
-                  Register for this session
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── Registration Form ─────────────────────────────────────────── */}
-      <section id="register" className="section-padding bg-neutral-50">
-        <div className="container-theme">
-          <div className="grid grid-cols-1 gap-12 lg:grid-cols-2 lg:items-start">
-            <div>
-              <span className="section-label mb-5">Register Your Interest</span>
-              <h2 className="font-display font-bold text-neutral-900 mb-4">
-                Secure your place on the next session
-              </h2>
-              <p className="text-neutral-600 leading-relaxed mb-6">
-                Fill in the form to register your interest. Our team will confirm
-                availability and send payment details for your chosen session.
-              </p>
-              <div className="p-5 rounded-xl bg-primary-50 border border-primary-100">
-                <p className="text-sm font-semibold text-primary-900 mb-1">
-                  Need group training?
-                </p>
-                <p className="text-xs text-primary-700 leading-relaxed">
-                  We offer custom in-house training for companies sending 5 or more
-                  participants. Contact us for group pricing and scheduling.
-                </p>
-                <Link href="/contact" className="text-xs font-semibold text-primary-600 hover:text-primary-800 transition-colors mt-2 inline-block">
-                  Enquire about group training →
-                </Link>
-              </div>
-            </div>
-            <div className="bg-white rounded-2xl border border-border shadow-lg p-8">
-              <TrainingRegistrationForm />
-            </div>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

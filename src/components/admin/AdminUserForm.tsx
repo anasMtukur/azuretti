@@ -6,25 +6,21 @@ import { z } from "zod";
 import { Loader2, Save } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/providers/ToastProvider";
+import { User } from "@/db/schema";
 
 const schema = z.object({
-  name:     z.string().min(2, "Name required"),
-  email:    z.string().email("Valid email required"),
-  role:     z.enum(["admin", "exporter", "buyer", "investor", "farmer"]),
-  isActive: z.boolean(),
-  password: z.string().optional(),
+  name:      z.string().min(2, "Name required"),
+  email:     z.string().email("Valid email required"),
+  role:      z.enum(["admin", "exporter", "buyer", "investor", "farmer"]),
+  adminRole: z.enum(["system_admin", "warehouse_manager", "content_manager", "finance_manager"]),
+  isActive:  z.boolean(),
+  password:  z.string().optional(),
 });
 
 type FormData = z.infer<typeof schema>;
 
 interface AdminUserFormProps {
-  user: {
-    id: string;
-    name: string | null;
-    email: string;
-    role: string;
-    isActive: boolean;
-  } | null;
+  user: User | null;
 }
 
 export function AdminUserForm({ user }: AdminUserFormProps) {
@@ -38,6 +34,7 @@ export function AdminUserForm({ user }: AdminUserFormProps) {
       name:     user?.name ?? "",
       email:    user?.email,
       role:     user?.role as FormData["role"],
+      adminRole: user?.adminRole as FormData["adminRole"],
       isActive: user?.isActive,
       password: "",
     },
@@ -92,6 +89,21 @@ export function AdminUserForm({ user }: AdminUserFormProps) {
             <option value="false">Inactive</option>
           </select>
         </div>
+      </div>
+
+      <div className="space-y-1">
+        <label className="text-sm font-medium text-neutral-700">Admin Role</label>
+        <select
+          {...register("adminRole")}
+          className="w-full border border-border rounded-lg px-3 py-2 text-sm"
+        >
+          <option value="">— None (generic admin) —</option>
+          <option value="system_admin">System Admin</option>
+          <option value="warehouse_manager">Warehouse Manager</option>
+          <option value="content_manager">Content Manager</option>
+          <option value="finance_manager">Finance Manager</option>
+        </select>
+        <p className="text-xs text-neutral-400">Controls which sections this admin can access.</p>
       </div>
 
       <div>

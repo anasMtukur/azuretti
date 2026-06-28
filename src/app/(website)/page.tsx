@@ -16,18 +16,20 @@ import { PortalsCTA }          from "@/components/website/sections/PortalsCTA";
 import { ComplianceHighlight } from "@/components/website/sections/ComplianceHighlight";
 import { PartnersBand }        from "@/components/website/sections/PartnersBand";
 import { ContactCTA }          from "@/components/website/sections/ContactCTA";
+import { BrandSection } from "@/components/website/sections/BrandSection";
 
 export default function Page() {
   return (
     <>
       <HeroSection />
       <StatsSection />
+      <BrandSection />
       <ValuePropsSection />
       <CommoditiesPreview />
       <PortalsCTA />
-      <ComplianceHighlight />
+      {/* <ComplianceHighlight /> */}
       <PartnersBand />
-      <ContactCTA />
+      {/* <ContactCTA /> */}
     </>
   );
 }

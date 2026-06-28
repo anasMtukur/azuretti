@@ -32,6 +32,7 @@ const usePush   = process.argv.includes("--push");
 // All enums with their values — edit here if the schema changes
 const enums: Array<{ name: string; values: string[] }> = [
   { name: "user_role",          values: ["admin", "exporter", "buyer", "investor", "farmer"] },
+  { name: "admin_role",         values: ["system_admin", "warehouse_manager", "content_manager", "finance_manager"] },
   { name: "shipment_status",    values: ["booked", "loaded", "in_transit", "delivered", "cancelled"] },
   { name: "payment_status",     values: ["unpaid", "partial", "paid"] },
   { name: "offer_status",       values: ["pending", "approved", "rejected", "fulfilled"] },

@@ -107,16 +107,15 @@ const partnerTypes = [
 ];
 
 const commoditiesHandled = [
-  "Hibiscus Flower", "Sesame Seeds", "Raw Cashew Nut", "Cocoa Beans",
-  "Gum Arabic", "Dried Split Ginger", "Sorghum", "Sheanuts",
-  "Cassava Chips", "Millet", "Sunflower Seeds", "Cassia Tora",
+  "Hibiscus Flower", "Shea Butter", "Beans", "Baobab", "Sesame Seeds", 
+  "Raw Cashew Nut", "Plantain Chips", "Dried Split Ginger and Many Others",
 ];
 
 export default function ExporterPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden bg-gradient-hero pt-20">
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-gradient-hero pt-20">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -133,7 +132,7 @@ export default function ExporterPage() {
         />
 
         <div className="container-theme relative z-10 py-16">
-          <div className="max-w-3xl">
+          <div className="max-w-full">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-6">
               <span className="w-2 h-2 rounded-full bg-accent-400 animate-pulse-slow" />
               For Nigerian Exporters
@@ -142,10 +141,10 @@ export default function ExporterPage() {
               Turn your commodities into{" "}
               <span className="text-accent-400">Euro revenue</span>
             </h1>
-            <p className="text-lg text-primary-100 leading-relaxed mb-10 max-w-2xl">
+            <p className="text-lg text-primary-100 leading-relaxed mb-10 max-w-4xl">
               Export to Europe with full compliance support from Azuretti's Nigerian
-              Export Trade House in France. We handle the complexity — you focus on
-              supplying quality product.
+              Export Trade House in France. <br />We handle the complexity — <span className="text-accent-400 font-semibold">you focus on
+              supplying quality product.</span>
             </p>
             <div className="flex flex-wrap gap-3">
               <Link href="/auth/register?role=exporter" className="btn-accent text-base px-7 py-3.5">
@@ -162,22 +161,44 @@ export default function ExporterPage() {
           </div>
         </div>
 
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-white" aria-hidden="true" />
+        {/* Bottom Right Peaking Image Asset */}
+        <div className="absolute right-0 bottom-0 w-72 h-72 md:w-96 md:h-96 z-0 pointer-events-none select-none select-none opacity-25 mix-blend-lighten">
+          <img 
+            src="/images/hero-peak.png" 
+            alt="" 
+            className="w-full h-full object-contain object-right-bottom"
+          />
+          {/* Soft fading gradient masking to blend smoothly into the core blue backgrounds */}
+          <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-transparent left-0 top-0" style={{
+            background: 'linear-gradient(to top right, transparent 20%, var(--tw-gradient-from, #020617) 90%)'
+          }} />
+        </div>
       </section>
 
       {/* ── What We Bring ──────────────────────────────────────────────── */}
       <section className="section-padding bg-white">
-        <div className="container-theme">
+        <div className="container-theme relative">
           <div className="max-w-xl mb-14">
             <span className="section-label mb-4">What We Bring to Nigerian Exporters</span>
             <h2 className="font-display font-bold text-neutral-900">
-              Everything you need to export successfully to the EU
+              Everything you need to start exporting successfully to the EU
             </h2>
             <p className="text-neutral-600 mt-3 leading-relaxed">
               Azuretti removes the barriers that stop Nigerian exporters from
-              accessing European markets — regulatory, logistical and financial.
+              accessing European markets — regulatory and logistical.
             </p>
+          </div>
+
+          <div className="absolute right-0 top-[-20px] w-72 h-72 md:w-96 md:h-96 z-0 pointer-events-none select-none select-none opacity-25 mix-blend-normal">
+            <img 
+              src="/images/hero-peak.png" 
+              alt="" 
+              className="w-full h-full object-contain object-right-bottom"
+            />
+            {/* Soft fading gradient masking to blend smoothly into the core blue backgrounds */}
+            <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-transparent left-0 top-0" style={{
+              background: 'linear-gradient(to top right, transparent 20%, var(--tw-gradient-from, #020617) 90%)'
+            }} />
           </div>
 
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -197,7 +218,7 @@ export default function ExporterPage() {
         </div>
       </section>
 
-      {/* ── Who Can Partner ────────────────────────────────────────────── */}
+      {/* ── Who Can Partner ────────────────────────────────────────────── 
       <section id="farmers" className="section-padding bg-neutral-50">
         <div className="container-theme">
           <div className="text-center max-w-xl mx-auto mb-14">
@@ -229,12 +250,12 @@ export default function ExporterPage() {
             ))}
           </div>
         </div>
-      </section>
+      </section>*/}
 
       {/* ── How It Works ───────────────────────────────────────────────── */}
-      <section id="how-it-works" className="section-padding bg-white">
+      <section id="how-it-works" className="section-padding bg-neutral-50">
         <div className="container-theme">
-          <div className="max-w-xl mb-14">
+          <div className="max-w-4xl mb-14">
             <span className="section-label mb-4">How It Works</span>
             <h2 className="font-display font-bold text-neutral-900">
               From registration to your first EU shipment
@@ -302,9 +323,6 @@ export default function ExporterPage() {
                   View all commodities
                   <ArrowRight className="h-4 w-4" />
                 </Link>
-                <Link href="/contact" className="btn-outline text-sm px-5 py-2.5 border-white/30 text-white hover:bg-white/10 hover:text-white">
-                  Ask about yours
-                </Link>
               </div>
             </div>
 
@@ -366,7 +384,7 @@ export default function ExporterPage() {
           <h2 className="font-display font-bold text-3xl text-neutral-900 mb-4">
             Ready to export to Europe?
           </h2>
-          <p className="text-neutral-800 max-w-xl mx-auto mb-8 leading-relaxed">
+          <p className="text-neutral-800 max-w-full mx-auto mb-8 leading-relaxed">
             Create your exporter profile, submit your products, and our team will
             guide you step-by-step until your first EU-compliant shipment leaves Nigeria.
           </p>

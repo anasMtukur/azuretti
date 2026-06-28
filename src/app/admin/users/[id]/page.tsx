@@ -22,10 +22,7 @@ export default async function AdminUserEditPage({
   
   if (!isNew) {
     const [found] = await db
-      .select({
-        id: users.id, name: users.name, email: users.email,
-        role: users.role, isActive: users.isActive,
-      })
+      .select()
       .from(users)
       .where(eq(users.id, params.id))
       .limit(1);

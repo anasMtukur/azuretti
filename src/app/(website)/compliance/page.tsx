@@ -180,10 +180,10 @@ export default function CompliancePage() {
       {/* ── Compliance Process ─────────────────────────────────────────── */}
       <section className="section-padding bg-neutral-50">
         <div className="container-theme">
-          <div className="text-center max-w-xl mx-auto mb-14">
+          <div className="text-center max-w-4xl mx-auto mb-14">
             <span className="section-label mb-4 justify-center">Quality Control Process</span>
             <h2 className="font-display font-bold text-neutral-900">
-              Compliance checks at every stage of the journey
+              Compliance checks at every stage
             </h2>
             <p className="text-neutral-600 mt-3 leading-relaxed">
               From the Nigerian farm gate to the European buyer's door, every
@@ -217,7 +217,7 @@ export default function CompliancePage() {
       {/* ── Documents Provided ─────────────────────────────────────────── */}
       <section className="section-padding bg-white">
         <div className="container-theme">
-          <div className="max-w-xl mb-12">
+          <div className="max-w-4xl mb-12">
             <span className="section-label mb-4">Documentation Provided</span>
             <h2 className="font-display font-bold text-neutral-900">
               A complete paper trail for every shipment
@@ -238,7 +238,7 @@ export default function CompliancePage() {
                   <p className="font-semibold text-sm text-neutral-900 mb-1">{name}</p>
                   <p className="text-xs text-neutral-500 leading-relaxed">{desc}</p>
                 </div>
-                <Download className="h-4 w-4 text-neutral-300 shrink-0 self-start mt-0.5 group-hover:text-primary-500 transition-colors" />
+                {/* <Download className="h-4 w-4 text-neutral-300 shrink-0 self-start mt-0.5 group-hover:text-primary-500 transition-colors" /> */}
               </div>
             ))}
           </div>
@@ -256,13 +256,13 @@ export default function CompliancePage() {
           aria-hidden="true"
         />
         <div className="container-theme relative z-10">
-          <div className="max-w-xl mb-12">
+          <div className="max-w-4xl mb-12">
             <span className="section-label mb-5 text-accent-400">
               <span className="block w-6 h-0.5 bg-accent-400" />
               EU Regulatory Framework
             </span>
             <h2 className="font-display font-bold text-white">
-              Key EU regulations we work within
+              Key EU regulations we work with
             </h2>
             <p className="text-primary-200 mt-3 leading-relaxed">
               Our compliance programme is built around the core EU regulations governing
@@ -270,11 +270,11 @@ export default function CompliancePage() {
             </p>
           </div>
 
-          <div className="space-y-3">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             {euRegulations.map(({ regulation, topic, summary }) => (
               <div
                 key={regulation}
-                className="grid grid-cols-1 gap-2 p-5 rounded-xl bg-white/5 border border-white/10 sm:grid-cols-[140px_1fr]"
+                className="grid grid-cols-1 gap-2 p-5 rounded-xl bg-white/5 border border-white/10 sm:grid-cols-[140px_1fr] lg:last:col-span-2"
               >
                 <div>
                   <p className="text-xs font-bold text-accent-400 mb-0.5">{regulation}</p>

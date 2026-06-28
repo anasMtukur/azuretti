@@ -13,14 +13,14 @@ interface HeroSubSectionProps {
 
 export function HeroSubSection({ type, tagText, title, description, bgImage }: HeroSubSectionProps) {
   // 1. Determine structural layout classes based on the variant 'type'
-  const isCentered = type === "about" || type === "news";
+  const isCentered = false; //type === "about" || type === "news";
   
   const sectionClasses = {
     about: "bg-gradient-hero pt-48 pb-20 relative overflow-hidden",
     commodities: "bg-gradient-hero pt-48 pb-16 relative overflow-hidden",
     compliance: "relative pt-40 pb-20 bg-gradient-hero overflow-hidden",
     contact: "bg-gradient-hero pt-44 pb-16 relative overflow-hidden",
-    news: "bg-gradient-to-br from-primary-950 to-primary-800 pt-48 pb-20 px-4",
+    news: "bg-gradient-to-br from-primary-950 to-primary-800 pt-48 pb-20 px-4 relative overflow-hidden",
   }[type];
 
   const headingClasses = {
@@ -65,8 +65,21 @@ export function HeroSubSection({ type, tagText, title, description, bgImage }: H
         />
       )}
 
+      {/* Bottom Right Peaking Image Asset */}
+      <div className="absolute right-0 bottom-0 w-72 h-72 md:w-96 md:h-96 z-0 pointer-events-none select-none select-none opacity-25 mix-blend-lighten">
+        <img 
+          src="/images/hero-peak.png" 
+          alt="" 
+          className="w-full h-full object-contain object-right-bottom"
+        />
+        {/* Soft fading gradient masking to blend smoothly into the core blue backgrounds */}
+        <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-transparent left-0 top-0" style={{
+          background: 'linear-gradient(to top right, transparent 20%, var(--tw-gradient-from, #020617) 90%)'
+        }} />
+      </div>
+
       {/* Content Wrapper */}
-      <div className={type === "news" ? "max-w-5xl mx-auto text-center" : `container-theme relative z-10 ${isCentered ? "text-center" : ""}`}>
+      <div className={type === "news" ? "max-w-5xl mx-auto text-center relative z-10" : `container-theme relative z-10 ${isCentered ? "text-center" : ""}`}>
         <div className={!isCentered && type !== "compliance" ? "" : type === "compliance" ? "max-w-2xl" : ""}>
           
           {/* Custom Tag Badges */}

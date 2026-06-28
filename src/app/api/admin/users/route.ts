@@ -10,11 +10,12 @@ import bcrypt from "bcryptjs";
 const db = getDb();
 
 const schema = z.object({
-  name:     z.string().min(2),
-  email:    z.string().email(),
-  role:     z.enum(["admin", "exporter", "buyer", "investor", "farmer"]),
-  isActive: z.boolean(),
-  password: z.string().optional(),
+  name:      z.string().min(2),
+  email:     z.string().email(),
+  role:      z.enum(["admin", "exporter", "buyer", "investor", "farmer"]),
+  adminRole: z.enum(["system_admin", "warehouse_manager", "content_manager", "finance_manager"]),
+  isActive:  z.boolean(),
+  password:  z.string().optional(),
 });
 
 export async function PATCH(
@@ -31,7 +32,7 @@ export async function PATCH(
     return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
   }
 
-  const { name, email, role, isActive, password } = parsed.data;
+  const { name, email, role, adminRole, isActive, password } = parsed.data;
 
   const newData: Record<string, unknown> = {
     name, email: email.toLowerCase().trim(), role, isActive,

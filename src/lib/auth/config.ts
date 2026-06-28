@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { users } from "@/db/schema";
 
-import type { UserRole } from "./types";
+import type { AdminRole, UserRole } from "./types";
 
 const db = getDb();
 /**
@@ -79,11 +79,12 @@ export const authOptions: NextAuthOptions = {
         }
 
         return {
-          id:    user.id,
-          name:  user.name,
-          email: user.email,
-          image: user.image,
-          role:  user.role as UserRole,
+          id:        user.id,
+          name:      user.name,
+          email:     user.email,
+          image:     user.image,
+          role:      user.role as UserRole,
+          adminRole: user.adminRole as AdminRole
         };
       },
     }),
@@ -98,6 +99,7 @@ export const authOptions: NextAuthOptions = {
       if (user) {
         token.id   = user.id;
         token.role = (user as { role?: UserRole }).role ?? "buyer";
+        token.adminRole = user.adminRole ?? null;
       }
       return token;
     },
@@ -110,6 +112,7 @@ export const authOptions: NextAuthOptions = {
       if (token && session.user) {
         session.user.id   = token.id as string;
         session.user.role = token.role as UserRole;
+        session.user.adminRole = token.adminRole ?? null;
       }
       return session;
     },

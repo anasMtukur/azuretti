@@ -3,6 +3,8 @@ import Link from "next/link";
 import { ArrowRight, Target, Eye, Heart, Warehouse } from "lucide-react";
 import { theme } from "@/config/theme";
 import { HeroSubSection } from "@/components/website/sections/HeroSubSection";
+import { PremiumShadowBox } from "@/components/website/PremiumShadowBox";
+import { InfrastructureSectionImage } from "@/components/website/sections/InfrastructureSectionImage";
 
 export const metadata: Metadata = {
   title: "About Azuretti",
@@ -37,17 +39,17 @@ const partnerships = [
     style: "bg-primary-100 border border-primary-400 text-slate-50",
     ctaStyle: "bg-white text-primary-700 hover:bg-primary-50",
   },
-  {
+  /* {
     type:  "Investor Partnership",
     desc:  "Commodity-backed export projects, typically starting from the value of a 20 ft container, in collaboration with licensed asset management companies.",
     cta:   "Sign Up",
     href:  "/auth/register?role=investor",
     style: "bg-accent-50 border border-accent-200",
     ctaStyle: "bg-accent-500 text-neutral-900 hover:bg-accent-600",
-  },
+  }, */
   {
     type:  "Farmer / Supplier",
-    desc:  "Farmers and suppliers looking to access the European market. We handle the export process, ensuring seamless access to Europe and payment in euros.",
+    desc:  "We handle the export process, ensuring seamless access to Europe.",
     cta:   "Sign Up",
     href:  "/auth/register?role=farmer",
     style: "bg-primary-50 border border-primary-200",
@@ -55,7 +57,7 @@ const partnerships = [
   },
   {
     type:  "Institutional Partnership",
-    desc:  "Collaboration with regulators, banks, trade promotion bodies and logistics partners to secure the export value chain.",
+    desc:  "Collaboration with stakeholders to secure the export value chain.",
     cta:   "Get in Touch",
     href:  "/contact",
     style: "bg-neutral-50 border border-border",
@@ -70,8 +72,8 @@ export default function AboutPage() {
       <HeroSubSection
         type="about"
         tagText="About Azuretti"
-        title={<>Bridging Nigeria and Europe<br />through compliant trade</>}
-        description="Azuretti Service is a registered French-Nigerian company dedicated to strengthening trade between West Africa and Europe through a professionally managed Nigerian Export Trade House in France."
+        title={<>Bridging Nigeria and Europe through compliant trade</>}
+        description=""
       />
 
       {/* Who We Are */}
@@ -83,16 +85,22 @@ export default function AboutPage() {
               <h2 className="font-display font-bold text-neutral-900 mb-5">
                 A trusted hub between Nigeria and Europe
               </h2>
+              <p className="text-neutral-600 font-semibold leading-relaxed mb-4">
+                Azuretti Services and Distribution (ASD) is a France- and Nigeria-registered agribusiness and 
+                international trade company specializing in the sourcing, export, import, and distribution of agricultural 
+                commodities between Nigeria and Europe.
+              </p>
               <p className="text-neutral-600 leading-relaxed mb-4">
-                Azuretti works closely with Nigerian exporters, regulators and European
-                buyers to ensure safe, compliant and profitable trade flows. We operate
-                in close partnership with the Nigerian Export Promotion Council.
+                With over 7 years of experience, we work closely with government and regulatory institutions in both countries 
+                to promote structured, compliant, and sustainable agricultural trade. We also operate the Nigeria Export Trade 
+                House in France, providing market access and trade facilitation for Nigerian exporters.
               </p>
               <p className="text-neutral-600 leading-relaxed mb-8">
-                Every shipment we handle is traceable, documented and aligned with European
-                Union regulations — from first farm gate to final delivery in Europe.
+                Through our digital trading platform, we connect Nigerian exporters with European buyers, simplifying cross-border 
+                trade and expanding access to international markets. In addition, we distribute premium African products across 
+                Europe under our DJeni® brand. 
               </p>
-              <div className="flex gap-3">
+              {/* <div className="flex gap-3">
                 <Link href="/contact" className="btn-primary text-sm px-5 py-2.5">
                   Get in touch
                   <ArrowRight className="h-4 w-4" />
@@ -100,23 +108,27 @@ export default function AboutPage() {
                 <Link href="/commodities" className="btn-outline text-sm px-5 py-2.5">
                   View commodities
                 </Link>
-              </div>
+              </div> */}
             </div>
+            
+            <div>
+              <PremiumShadowBox src="/images/about-side.png" alt="About Azuretti Services" aspectRatio="portrait" />
+            </div>
+          </div>
 
-            {/* Stats column */}
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { value: "15+",      label: "Years of agricultural export experience" },
-                { value: "150+ MT",  label: "Metric tonnes shipped to Europe" },
-                { value: "99%",      label: "Quality acceptance rate by EU labs" },
-                { value: "7,500 MT", label: "Combined Nigeria + France warehouse capacity" },
-              ].map(({ value, label }) => (
-                <div key={label} className="p-5 rounded-xl bg-primary-50 border border-primary-100">
-                  <p className="font-display font-bold text-3xl text-primary-700 mb-1">{value}</p>
-                  <p className="text-xs text-primary-600 leading-snug">{label}</p>
-                </div>
-              ))}
-            </div>
+          {/* Stats column */}
+          <div className="grid grid-cols-4 gap-4 mt-8">
+            {[
+              { value: "15+",      label: "Years of agricultural export experience" },
+              { value: "150+ MT",  label: "Metric tonnes shipped to Europe" },
+              { value: "99%",      label: "Quality acceptance rate by EU labs" },
+              { value: "7,500 MT", label: "Combined Nigeria + France warehouse capacity" },
+            ].map(({ value, label }) => (
+              <div key={label} className="p-5 rounded-xl bg-primary-50 border border-primary-100">
+                <p className="font-display font-bold text-3xl text-primary-700 mb-1">{value}</p>
+                <p className="text-xs text-primary-600 leading-snug">{label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -164,7 +176,7 @@ export default function AboutPage() {
       {/* Core Values */}
       <section className="section-padding bg-white">
         <div className="container-theme">
-          <div className="text-center max-w-xl mx-auto mb-12">
+          <div className="text-center max-w-full mx-auto mb-12">
             <span className="section-label mb-4 justify-center">Core Values</span>
             <h2 className="font-display font-bold text-neutral-900">
               What drives everything we do
@@ -172,7 +184,7 @@ export default function AboutPage() {
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {values.map(({ icon: Icon, title, desc }) => (
-              <div key={title} className="text-center p-8 rounded-xl border border-border hover:border-primary-200 hover:shadow-green transition-all duration-200">
+              <div key={title} className="text-center px-8 pt-4 pb-2 rounded-xl border border-border hover:border-primary-200 hover:shadow-green transition-all duration-200">
                 <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center mx-auto mb-4">
                   <Icon className="h-6 w-6 text-primary-600" />
                 </div>
@@ -184,80 +196,22 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Infrastructure */}
-      <section className="section-padding bg-primary-950 relative overflow-hidden">
-        <div
-          className="absolute inset-0 opacity-[0.04]"
-          style={{
-            backgroundImage: `radial-gradient(circle at 1px 1px, white 1px, transparent 0)`,
-            backgroundSize: "32px 32px",
-          }}
-          aria-hidden="true"
-        />
-        <div className="container-theme relative z-10">
-          <div className="text-center max-w-xl mx-auto mb-12">
-            <span className="section-label mb-4 justify-center text-accent-400">
-              <span className="block w-6 h-0.5 bg-accent-400" />
-              Our Infrastructure
-            </span>
-            <h2 className="font-display font-bold text-white">
-              Warehousing on both sides of the trade
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {[
-              {
-                flag:     "🇳🇬",
-                country:  "Nigeria",
-                capacity: "4,000 MT",
-                detail:   "Storage capacity across strategic hubs in Kano and Abuja, close to major commodity-producing regions.",
-                locations: ["Kano – Ibrahim Taiwo Road", "Abuja – Maitama"],
-              },
-              {
-                flag:     "🇫🇷",
-                country:  "France",
-                capacity: "3,500 MT",
-                detail:   "Storage close to major logistics corridors, enabling just-in-time deliveries to European buyers across the continent.",
-                locations: ["Villeneuve-sur-Lot, 79 Avenue de Bias"],
-              },
-            ].map(({ flag, country, capacity, detail, locations }) => (
-              <div key={country} className="p-7 rounded-xl bg-white/5 border border-white/10">
-                <div className="flex items-center gap-3 mb-4">
-                  <span className="text-3xl">{flag}</span>
-                  <div>
-                    <p className="font-display font-bold text-xl text-white">{country}</p>
-                    <p className="text-accent-400 font-semibold text-sm">{capacity} capacity</p>
-                  </div>
-                </div>
-                <p className="text-sm text-primary-200 leading-relaxed mb-4">{detail}</p>
-                <div className="space-y-1.5">
-                  {locations.map((loc) => (
-                    <div key={loc} className="flex items-center gap-2 text-xs text-primary-300">
-                      <Warehouse className="h-3.5 w-3.5 text-accent-500 shrink-0" />
-                      {loc}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <InfrastructureSectionImage />
 
       {/* Partnership Models */}
       <section id="partnership" className="section-padding bg-white">
         <div className="container-theme">
-          <div className="text-center max-w-xl mx-auto mb-12">
+          <div className="text-center max-w-full mx-auto mb-12">
             <span className="section-label mb-4 justify-center">Partnership Models</span>
             <h2 className="font-display font-bold text-neutral-900">
-              Find your pathway with Azuretti
+              Find your pathway with ETH
             </h2>
             <p className="text-neutral-600 mt-3 text-sm leading-relaxed">
               We offer four distinct partnership models, each designed for a specific role in
               the export value chain.
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 mb-4">
             {partnerships.map(({ type, desc, cta, href, style, ctaStyle }) => (
               <div key={type} className={`rounded-xl p-7 ${style}`}>
                 <h3 className="font-display font-bold text-xl text-neutral-900 mb-3">{type}</h3>

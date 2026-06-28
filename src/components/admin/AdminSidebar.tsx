@@ -5,29 +5,49 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   LayoutDashboard, Users, Package, Ship, Warehouse,
-  ChevronLeft, LogOut, Settings, BarChart3,
-  MessageSquare, Newspaper,
-  ClipboardList,
-  FileQuestionIcon,
-  DollarSign,
-  TrendingUp,
+  ChevronLeft, LogOut, BarChart3, MessageSquare,
+  Newspaper, ClipboardList, DollarSign, TrendingUp,
 } from "lucide-react";
 import { signOut } from "next-auth/react";
 import { cn, initials } from "@/lib/utils";
-import type { UserRole } from "@/lib/auth/types";
+import type { UserRole, AdminRole } from "@/lib/auth/types";
 
 interface AdminSidebarProps {
-  user: { name: string | null; email: string; role: UserRole };
+  user: { name: string | null; email: string; role: UserRole; adminRole?: AdminRole | null };
 }
 
-const navItems = [
-  { href: "/admin/dashboard",  icon: LayoutDashboard, label: "Dashboard" },
-  { href: "/admin/users",      icon: Users,           label: "Users" },
-  { href: "/admin/commodities",icon: Package,         label: "Commodities" },
+type NavItem = {
+  href: string;
+  icon: React.ElementType;
+  label: string;
+  allowedRoles: AdminRole[];
+  children?: { href: string; label: string }[];
+};
+
+const navItems: NavItem[] = [
+  {
+    href: "/admin/dashboard",
+    icon: LayoutDashboard,
+    label: "Dashboard",
+    allowedRoles: ["system_admin", "warehouse_manager"],
+  },
+  {
+    href: "/admin/users",
+    icon: Users,
+    label: "Users",
+    allowedRoles: ["system_admin"],
+  },
+  {
+    href: "/admin/commodities",
+    icon: Package,
+    label: "Commodities",
+    allowedRoles: ["content_manager"],
+  },
   {
     href: "/admin/warehouse",
     icon: Warehouse,
     label: "Warehouse",
+    allowedRoles: ["warehouse_manager"],
     children: [
       { href: "/admin/warehouse/receipts", label: "Receipts" },
       { href: "/admin/warehouse/stock",    label: "Stock Overview" },
@@ -37,25 +57,68 @@ const navItems = [
     href: "/admin/demands",
     icon: ClipboardList,
     label: "Demands & RFQs",
+    allowedRoles: ["warehouse_manager"],
     children: [
-      { href: "/admin/demands?type=all",          label: "Demands" },
+      { href: "/admin/demands?type=all", label: "Demands" },
       { href: "/admin/demands?type=rfq", label: "Quotes" },
     ],
   },
-  { href: "/admin/shipments",  icon: Ship,              label: "Shipments" },
-  { href: "/admin/finance",    icon: DollarSign,        label: "Finance & Settlement" },
-  { href: "/admin/commodity-prices", icon: TrendingUp, label: "Commodity Prices" },
-  { href: "/admin/contacts",   icon: MessageSquare,     label: "Contact Inbox" },
-  { href: "/admin/news",       icon: Newspaper,         label: "News & Events" },
-  { href: "/admin/reports",  icon: BarChart3,         label: "Reports & Analytics" },
-  /* { href: "/admin/settings",   icon: Settings,          label: "Settings" }, */
+  {
+    href: "/admin/shipments",
+    icon: Ship,
+    label: "Shipments",
+    allowedRoles: ["warehouse_manager"],
+  },
+  {
+    href: "/admin/finance",
+    icon: DollarSign,
+    label: "Finance & Settlement",
+    allowedRoles: ["finance_manager"],
+  },
+  {
+    href: "/admin/commodity-prices",
+    icon: TrendingUp,
+    label: "Commodity Prices",
+    allowedRoles: ["content_manager"],
+  },
+  {
+    href: "/admin/contacts",
+    icon: MessageSquare,
+    label: "Contact Inbox",
+    allowedRoles: ["content_manager"],
+  },
+  {
+    href: "/admin/news",
+    icon: Newspaper,
+    label: "News & Events",
+    allowedRoles: ["content_manager"],
+  },
+  {
+    href: "/admin/reports",
+    icon: BarChart3,
+    label: "Reports & Analytics",
+    allowedRoles: ["system_admin", "warehouse_manager", "finance_manager"],
+  },
 ];
 
-const ACCENT = "#7c3aed"; // admin purple
+const ACCENT = "#7c3aed";
+
+const ROLE_LABELS: Record<AdminRole, string> = {
+  system_admin:      "System Admin",
+  warehouse_manager: "Warehouse Manager",
+  content_manager:   "Content Manager",
+  finance_manager:   "Finance Manager",
+};
 
 export function AdminSidebar({ user }: AdminSidebarProps) {
-  const pathname   = usePathname();
+  const pathname  = usePathname();
   const [collapsed, setCollapsed] = useState(false);
+
+  // Filter nav to only items this adminRole can see.
+  // If no adminRole set (legacy admin), show everything.
+  const visibleNav = user.adminRole
+    ? navItems.filter((item) => item.allowedRoles.includes(user.adminRole!))
+    : navItems;
 
   return (
     <aside
@@ -73,7 +136,9 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
             </div>
             <div className="min-w-0">
               <p className="font-display font-bold text-sm text-neutral-900 truncate">Azuretti</p>
-              <p className="text-[10px] text-neutral-400 truncate">Admin Portal</p>
+              <p className="text-[10px] text-neutral-400 truncate">
+                {user.adminRole ? ROLE_LABELS[user.adminRole] : "Admin Portal"}
+              </p>
             </div>
           </Link>
         )}
@@ -97,7 +162,7 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
 
       {/* Nav */}
       <nav className="flex-1 overflow-y-auto py-4 px-2">
-        {navItems.map((item) => {
+        {visibleNav.map((item) => {
           const Icon   = item.icon;
           const active = pathname === item.href || pathname.startsWith(`${item.href}/`);
           const hasChildren = "children" in item && item.children;
@@ -118,7 +183,6 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
                 {!collapsed && <span className="truncate">{item.label}</span>}
               </Link>
 
-              {/* Sub-items (shown when parent is active and sidebar is expanded) */}
               {!collapsed && hasChildren && active && (
                 <div className="ml-4 mb-1 space-y-0.5 border-l border-border pl-3">
                   {item.children!.map((child) => {
@@ -129,9 +193,7 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
                         href={child.href}
                         className={cn(
                           "block px-2 py-1.5 rounded text-xs font-medium transition-colors",
-                          childActive
-                            ? "text-white"
-                            : "text-neutral-500 hover:text-neutral-800 hover:bg-neutral-50"
+                          childActive ? "text-white" : "text-neutral-500 hover:text-neutral-800 hover:bg-neutral-50"
                         )}
                         style={childActive ? { background: ACCENT } : undefined}
                       >
@@ -155,7 +217,9 @@ export function AdminSidebar({ user }: AdminSidebarProps) {
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-neutral-900 truncate">{user.name ?? "Admin"}</p>
-              <p className="text-xs text-neutral-400 truncate">{user.email}</p>
+              <p className="text-xs text-neutral-400 truncate">
+                {user.adminRole ? ROLE_LABELS[user.adminRole] : user.email}
+              </p>
             </div>
             <button
               onClick={() => signOut({ callbackUrl: "/" })}

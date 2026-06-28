@@ -98,7 +98,7 @@ export default function BuyerPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[80vh] flex items-center overflow-hidden bg-neutral-900 pt-24">
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-gradient-hero pt-24">
         {/* Grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -116,7 +116,7 @@ export default function BuyerPage() {
         />
 
         <div className="container-theme relative z-10 py-16">
-          <div className="max-w-3xl">
+          <div className="max-w-4xl">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-6">
               <Globe2 className="h-3.5 w-3.5 text-blue-400" />
               For European Buyers
@@ -144,16 +144,27 @@ export default function BuyerPage() {
           </div>
         </div>
 
-        <div className="absolute bottom-0 inset-x-0 h-20 bg-gradient-to-t from-white" aria-hidden="true" />
+        {/* Bottom Right Peaking Image Asset */}
+        <div className="absolute right-0 bottom-0 w-72 h-72 md:w-96 md:h-96 z-0 pointer-events-none select-none select-none opacity-25 mix-blend-lighten">
+          <img 
+            src="/images/hero-peak.png" 
+            alt="" 
+            className="w-full h-full object-contain object-right-bottom"
+          />
+          {/* Soft fading gradient masking to blend smoothly into the core blue backgrounds */}
+          <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-transparent left-0 top-0" style={{
+            background: 'linear-gradient(to top right, transparent 20%, var(--tw-gradient-from, #020617) 90%)'
+          }} />
+        </div>
       </section>
 
       {/* ── What We Offer Buyers ───────────────────────────────────────── */}
       <section className="section-padding bg-white">
         <div className="container-theme">
-          <div className="max-w-xl mb-14">
+          <div className="max-w-full mb-14">
             <span className="section-label mb-4">What We Offer European Buyers</span>
             <h2 className="font-display font-bold text-neutral-900">
-              Reliable, traceable supply — managed from France
+              Reliable, traceable supply that's managed from France
             </h2>
             <p className="text-neutral-600 mt-3 leading-relaxed">
               Azuretti removes the complexity of sourcing directly from Nigeria while
@@ -165,7 +176,7 @@ export default function BuyerPage() {
             {offerings.map(({ icon: Icon, title, desc }) => (
               <div
                 key={title}
-                className="group p-6 rounded-xl border border-border bg-white hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+                className="group p-6 rounded-xl border border-border bg-neutral-50 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
               >
                 <div className="w-11 h-11 rounded-lg bg-blue-50 flex items-center justify-center mb-4 group-hover:bg-blue-100 transition-colors">
                   <Icon className="h-5 w-5 text-blue-600" />
@@ -213,7 +224,7 @@ export default function BuyerPage() {
       {/* ── Who Can Buy From Us ────────────────────────────────────────── */}
       <section className="section-padding bg-white">
         <div className="container-theme">
-          <div className="text-center max-w-xl mx-auto mb-14">
+          <div className="text-center max-w-full mx-auto mb-14">
             <span className="section-label mb-4 justify-center">Who Can Buy From Us</span>
             <h2 className="font-display font-bold text-neutral-900">
               We serve the full European supply chain
@@ -248,7 +259,7 @@ export default function BuyerPage() {
           aria-hidden="true"
         />
         <div className="container-theme relative z-10">
-          <div className="text-center max-w-xl mx-auto mb-14">
+          <div className="text-center max-w-4xl mx-auto mb-14">
             <span className="section-label mb-4 justify-center text-accent-400">
               <span className="block w-6 h-0.5 bg-accent-400" />
               Getting Started
@@ -304,18 +315,28 @@ export default function BuyerPage() {
                 </Link>
               </div>
               {/* Stats panel */}
-              <div className="bg-primary-700 p-10 lg:p-14 flex flex-col justify-center gap-8">
-                {[
-                  { value: "3,500 MT", label: "Warehouse capacity in France" },
-                  { value: "4,000 MT", label: "Partner storage in Nigeria" },
-                  { value: "99%",      label: "Quality acceptance rate by EU labs" },
-                  { value: "48 hrs",   label: "Quote response time" },
-                ].map(({ value, label }) => (
-                  <div key={label} className="border-b border-primary-600 pb-6 last:border-0 last:pb-0">
-                    <p className="font-display font-bold text-3xl text-accent-400 mb-1">{value}</p>
-                    <p className="text-sm text-primary-200">{label}</p>
+              <div className="bg-primary-700 flex flex-col justify-center gap-8">
+                <div className="relative group w-full aspect-[4/3] col-span-3 rounded-xl self-stretch min-h-[320px] lg:min-h-1/2">
+                  {/* Structural External Wireframe Frame */}
+                  <div 
+                    className="absolute inset-0 border border-white/10 rounded-xl translate-y-3 translate-x-3 pointer-events-none transition-transform duration-300 group-hover:translate-y-2 group-hover:translate-x-2" 
+                    aria-hidden="true" 
+                  />
+                  {/* Image Outer Shell */}
+                  <div className="relative w-full h-full overflow-hidden rounded-xl border border-white/10 bg-slate-900 shadow-2xl">
+                    <img
+                      src="/images/warehouse.jpg"
+                      alt="Azuretti logistics warehouse facility"
+                      className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
+                    />
+                    {/* Subtle top/bottom overlay mask for content consistency */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-primary-950/50 via-transparent to-transparent" />
+                    
+                    <div className="absolute bottom-4 left-4 px-3 py-1 rounded bg-primary-950/60 backdrop-blur-md border border-white/10 text-[10px] font-mono tracking-wider text-white/70 uppercase">
+                      Fully Compliant Hubs
+                    </div>
                   </div>
-                ))}
+                </div>
               </div>
             </div>
           </div>

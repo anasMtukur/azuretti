@@ -44,10 +44,10 @@ export function ValuePropsSection() {
     <section className="section-padding bg-muted" aria-label="What we offer">
       <div className="container-theme">
         {/* Header */}
-        <div className="max-w-xl mb-14">
+        <div className="max-w-full mb-14">
           <span className="section-label mb-4">Our Core Role</span>
           <h2 className="font-display font-bold text-neutral-900 mb-4">
-            Everything you need to trade between Nigeria and Europe
+            Everything you need to start trading to Europe
           </h2>
           <p className="text-neutral-600 leading-relaxed">
             Azuretti acts as your single point of contact for every stage of

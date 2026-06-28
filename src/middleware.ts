@@ -16,11 +16,19 @@ import type { NextRequest } from "next/server";
  *   /admin/*       → protected – admin only
  * ============================================================
  */
+const ROLE_ROUTES: Record<string, string[]> = {
+  system_admin:      ["/admin/dashboard", "/admin/users", "/admin/reports"],
+  warehouse_manager: ["/admin/dashboard", "/admin/warehouse", "/admin/demands", "/admin/shipments", "/admin/reports"],
+  content_manager:   ["/admin/commodities", "/admin/commodity-prices", "/admin/contacts", "/admin/news"],
+  finance_manager:   ["/admin/finance", "/admin/reports"],
+};
+
 export default withAuth(
-  function middleware(req: NextRequest & { nextauth: { token: { role?: string } | null } }) {
+  function middleware(req: NextRequest & { nextauth: { token: { role?: string, adminRole?: string | null } | null } }) {
     const { pathname } = req.nextUrl;
     const token = req.nextauth?.token;
     const role = token?.role;
+    const adminRole = token?.adminRole;
 
     // Redirect logged-in users away from auth pages
     if (pathname.startsWith("/auth/") && token) {
@@ -41,6 +49,19 @@ export default withAuth(
       return NextResponse.redirect(new URL("/unauthorized", req.url));
     }
 
+    // Enforce adminRole sub-route access
+    if (pathname.startsWith("/admin") && role === "admin") {
+      const adminRole = token?.adminRole;
+      if (adminRole && adminRole in ROLE_ROUTES) {
+        const allowed = ROLE_ROUTES[adminRole];
+        const isAllowed = allowed.some((route) => pathname.startsWith(route));
+        if (!isAllowed) {
+          return NextResponse.redirect(new URL(allowed[0], req.url));
+        }
+      }
+      // No adminRole set = legacy/super admin, allow everything
+    }
+    
     return NextResponse.next();
   },
   {

@@ -34,7 +34,7 @@ const portals = [
     ctaClass:    "bg-accent-500 text-neutral-900 hover:bg-accent-600",
     learnClass:  "text-neutral-400 hover:text-white",
   },
-  {
+  /* {
     key:         "investor",
     icon:        TrendingUp,
     title:       "Investors",
@@ -49,7 +49,7 @@ const portals = [
     mutedColor:  "text-neutral-600",
     ctaClass:    "bg-accent-500 text-neutral-900 hover:bg-accent-600",
     learnClass:  "text-neutral-500 hover:text-neutral-700",
-  },
+  }, */
   {
     key:         "farmer",
     icon:        Wheat,
@@ -85,7 +85,7 @@ export function PortalsCTA() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-3 lg:grid-cols-3">
           {portals.map(
             ({
               key, icon: Icon, title, description,

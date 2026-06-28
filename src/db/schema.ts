@@ -31,6 +31,13 @@ export const userRoleEnum = pgEnum("user_role", [
   "farmer",
 ]);
 
+export const adminRoleEnum = pgEnum("admin_role", [
+  "system_admin",
+  "warehouse_manager",
+  "content_manager",
+  "finance_manager",
+]);
+
 export const shipmentStatusEnum = pgEnum("shipment_status", [
   "booked",
   "loaded",
@@ -179,6 +186,7 @@ export const users = pgTable(
     image:         text("image"),
     password:      text("password"),                    // hashed via bcrypt
     role:          userRoleEnum("role").default("buyer").notNull(),
+    adminRole:     adminRoleEnum("admin_role"),         // null for non-admin users
     isActive:      boolean("is_active").default(true).notNull(),
     createdAt:     timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
     updatedAt:     timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),

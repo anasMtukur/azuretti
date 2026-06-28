@@ -40,7 +40,7 @@ const partners = [
 export function Footer() {
   return (
     <footer className="bg-neutral-900 text-neutral-300">
-      {/* Partners strip */}
+      {/* Partners strip
       <div className="border-b border-neutral-800">
         <div className="container-theme py-6">
           <p className="text-xs uppercase tracking-widest text-neutral-500 mb-4 font-medium">
@@ -54,7 +54,7 @@ export function Footer() {
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main footer */}
       <div className="container-theme py-16">
@@ -150,15 +150,6 @@ export function Footer() {
             </a>
           </div>
 
-          <a
-            href="https://zeenabfoods.com"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 text-xs text-neutral-600 hover:text-neutral-400 transition-colors"
-          >
-            <ExternalLink className="h-3 w-3" />
-            Zeenab Foods
-          </a>
         </div>
       </div>
 

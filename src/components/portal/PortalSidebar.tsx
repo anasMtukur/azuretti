@@ -24,7 +24,7 @@ function getNavItems(role: UserRole) {
     return [
       { href: "/portal/exporter/dashboard",    icon: LayoutDashboard, label: "Dashboard" },
       { href: "/portal/exporter/warehouse",    icon: Warehouse,       label: "My Warehouse" },
-      { href: "/portal/exporter/sales",        icon: DollarSign,      label: "My Sales" },
+      { href: "/portal/exporter/sales",        icon: DollarSign,      label: "My Sales & Payments" },
       { href: "/portal/exporter/reports",    icon: BarChart3,        label: "Reports & Audit" },
       /* { href: "/portal/exporter/shipments",    icon: Ship,            label: "My Shipments" },
       { href: "/portal/exporter/offers",       icon: Package,         label: "Supply Offers" },

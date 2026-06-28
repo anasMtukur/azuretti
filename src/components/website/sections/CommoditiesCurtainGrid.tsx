@@ -16,7 +16,7 @@ const categoryLabels: Record<string, string> = {
 const categoryImages: Record<string, string> = {
   pulses: "/images/commodities/pulses.jpg",
   grains: "/images/commodities/grains.jpg",
-  seeds:  "/images/commodities/seeds.webp",
+  seeds:  "/images/commodities/seeds.jpg",
   nuts:   "/images/commodities/nuts.jpg",
 };
 
