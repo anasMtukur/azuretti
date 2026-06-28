@@ -73,7 +73,7 @@ export function PortalsCTA() {
     <section className="section-padding bg-neutral-50" aria-label="Portals">
       <div className="container-theme">
         {/* Header */}
-        <div className="text-center max-w-xl mx-auto mb-14">
+        <div className="text-center max-w-5xl mx-auto mb-14">
           <span className="section-label mb-4 justify-center">Partnership Models</span>
           <h2 className="font-display font-bold text-neutral-900">
             Who can work with Azuretti?

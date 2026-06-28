@@ -129,7 +129,7 @@ export default function TrainingPage() {
               Training & Capacity Building
             </div>
             <h2 className="font-display font-bold text-white mb-5">
-              Build your export capacity for European markets
+              Build your export capacity for <span className="text-accent-400">European markets</span>
             </h2>
             <p className="text-lg text-primary-200 leading-relaxed mb-10">
               Azuretti provides virtual and in-person training for Nigerian exporters,

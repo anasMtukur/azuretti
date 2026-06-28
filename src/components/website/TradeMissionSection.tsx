@@ -67,7 +67,7 @@ export default function TradeMissionSection() {
                 <div className="flex items-center gap-2.5">
                   <span className="text-2xl">🇫🇷</span>
                   <div>
-                    <p className="font-display font-bold text-lg leading-tight">France Mission</p>
+                    <p className="font-display font-bold text-lg leading-tight">Trade Mission (France)</p>
                     <p className="text-xs opacity-70">October 2026 Intake</p>
                   </div>
                 </div>

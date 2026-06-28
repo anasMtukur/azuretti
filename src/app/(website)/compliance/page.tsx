@@ -113,7 +113,7 @@ export default function CompliancePage() {
       <HeroSubSection
         type="compliance"
         tagText="Compliance & Certification"
-        title={<>Every shipment is traceable,<br />verified and documented</>}
+        title={<>Every shipment is <span className="text-accent-400">verified and documented</span></>}
         description="Azuretti ensures that every product passing through the Nigerian Export Trade House is aligned with European Union regulations on food safety, labelling and packaging — without exception."
       />
 

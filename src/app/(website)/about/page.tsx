@@ -72,7 +72,7 @@ export default function AboutPage() {
       <HeroSubSection
         type="about"
         tagText="About Azuretti"
-        title={<>Bridging Nigeria and Europe through compliant trade</>}
+        title={<>Bridging Nigeria and Europe through <span className="text-accent-400">compliant trade</span></>}
         description=""
       />
 
@@ -91,15 +91,13 @@ export default function AboutPage() {
                 commodities between Nigeria and Europe.
               </p>
               <p className="text-neutral-600 leading-relaxed mb-4">
-                With over 7 years of experience, we work closely with government and regulatory institutions in both countries 
-                to promote structured, compliant, and sustainable agricultural trade. We also operate the Nigeria Export Trade 
-                House in France, providing market access and trade facilitation for Nigerian exporters.
+                With over 7 years of experience, we work closely with government and regulatory institutions in Nigeria and 
+                France to promote structured, compliant, and sustainable agricultural trade. We operate the Nigeria Export 
+                Trade House in France, facilitate market access for Nigerian exporters, connect them with European buyers through 
+                our digital trading platform, simplify cross-border trade, expand access to international markets, and distribute 
+                premium African products across Europe under our DJeni® brand.                
               </p>
-              <p className="text-neutral-600 leading-relaxed mb-8">
-                Through our digital trading platform, we connect Nigerian exporters with European buyers, simplifying cross-border 
-                trade and expanding access to international markets. In addition, we distribute premium African products across 
-                Europe under our DJeni® brand. 
-              </p>
+              
               {/* <div className="flex gap-3">
                 <Link href="/contact" className="btn-primary text-sm px-5 py-2.5">
                   Get in touch
@@ -112,7 +110,7 @@ export default function AboutPage() {
             </div>
             
             <div>
-              <PremiumShadowBox src="/images/about-side.png" alt="About Azuretti Services" aspectRatio="portrait" />
+              <PremiumShadowBox src="/images/slide-6.jpg" alt="About Azuretti Services" aspectRatio="video" showGlow={false} />
             </div>
           </div>
 

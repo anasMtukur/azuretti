@@ -58,7 +58,7 @@ export default async function Page({ searchParams }: CommoditiesPageProps) {
       <HeroSubSection
         type="commodities"
         tagText="Exportable Commodities"
-        title="EU-ready Nigerian commodities"
+        title={<>EU-ready Nigerian <span className="text-accent-400">commodities</span></>}
         description="Every product in our portfolio is fully vetted, quality-tested by accredited laboratories and documented for the European market."
       />
 

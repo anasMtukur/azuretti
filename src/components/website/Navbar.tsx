@@ -95,7 +95,8 @@ export function Navbar() {
           <div className="container-theme h-full flex items-center justify-between">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-lg bg-primary-600 flex items-center justify-center shadow-sm group-hover:bg-primary-700 transition-colors">
+              <img src="/images/logo.png" alt="Azuretti Services" />
+              {/* <div className="w-9 h-9 rounded-lg bg-primary-600 flex items-center justify-center shadow-sm group-hover:bg-primary-700 transition-colors">
                 <span className="text-white font-display font-bold text-base">A</span>
               </div>
               <div className="flex flex-col leading-tight">
@@ -111,7 +112,7 @@ export function Navbar() {
                 )}>
                   Export Trade House
                 </span>
-              </div>
+              </div> */}
             </Link>
 
             {/* Desktop Navigation */}

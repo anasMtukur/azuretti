@@ -31,7 +31,7 @@ export function CommoditiesCurtainGrid({ groupedData }: CurtainGridProps) {
   const [activeCategory, setActiveCategory] = useState<string>("pulses");
 
   return (
-    <div className="flex flex-col lg:flex-row gap-4 h-[500px] w-full overflow-hidden select-none">
+    <div className="flex flex-col lg:flex-row gap-4 h-[43vh] w-full overflow-hidden select-none">
       {Object.entries(groupedData).map(([category, items]) => {
         const isExpanded = activeCategory === category;
         const label = categoryLabels[category] || category;
@@ -40,8 +40,8 @@ export function CommoditiesCurtainGrid({ groupedData }: CurtainGridProps) {
         return (
           <div
             key={category}
-            className={`relative h-full transition-all duration-500 ease-in-out border border-border rounded-xl overflow-hidden flex ${
-              isExpanded ? "flex-1 bg-neutral-50/50" : "w-full lg:w-[60px] h-[60px] lg:h-full cursor-pointer"
+            className={`relative h-[40vh] transition-all duration-500 ease-in-out border border-border rounded-xl overflow-hidden flex ${
+              isExpanded ? "flex-1 bg-neutral-50/50" : "w-full lg:w-[60px] h-[60px] lg:h-[40vh] cursor-pointer"
             }`}
             onClick={() => !isExpanded && setActiveCategory(category)}
           >
@@ -49,8 +49,8 @@ export function CommoditiesCurtainGrid({ groupedData }: CurtainGridProps) {
             <div
               className={`relative shrink-0 flex items-center justify-center transition-all duration-500 ${
                 isExpanded 
-                  ? "w-full lg:w-[120px] h-[60px] lg:h-full border-b lg:border-b-0 lg:border-r border-border" 
-                  : "w-full lg:w-[60px] h-full"
+                  ? "w-full lg:w-[120px] h-[60px] lg:h-[40vh] border-b lg:border-b-0 lg:border-r border-border" 
+                  : "w-full lg:w-[60px] h-[40vh]"
               }`}
               style={{
                 backgroundImage: `linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.65)), url(${bgImage})`,
@@ -71,7 +71,7 @@ export function CommoditiesCurtainGrid({ groupedData }: CurtainGridProps) {
 
             {/* --- REVEALED CONTENT: Your Original Items Grid --- */}
             <div
-              className={`flex-1 p-6 transition-all duration-300 overflow-y-auto ${
+              className={`flex-1 p-6 transition-all duration-300 max-h-[40vh] overflow-y-auto ${
                 isExpanded ? "opacity-100 translate-x-0" : "opacity-0 -translate-x-4 pointer-events-none"
               }`}
             >

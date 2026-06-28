@@ -116,14 +116,14 @@ export default function BuyerPage() {
         />
 
         <div className="container-theme relative z-10 py-16">
-          <div className="max-w-4xl">
+          <div className="max-w-full">
             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-6">
               <Globe2 className="h-3.5 w-3.5 text-blue-400" />
               For European Buyers
             </div>
             <h1 className="font-display font-bold text-white mb-5">
-              Source verified Nigerian commodities{" "}
-              <span className="text-accent-400">from within Europe</span>
+              Verified Nigerian commodities from{" "}
+              <span className="text-accent-400"> ETH</span>
             </h1>
             <p className="text-lg text-neutral-300 leading-relaxed mb-10 max-w-2xl">
               Traceable, compliant and contract-backed supply through Azuretti's
@@ -325,7 +325,7 @@ export default function BuyerPage() {
                   {/* Image Outer Shell */}
                   <div className="relative w-full h-full overflow-hidden rounded-xl border border-white/10 bg-slate-900 shadow-2xl">
                     <img
-                      src="/images/warehouse.jpg"
+                      src="/images/wh.jpg"
                       alt="Azuretti logistics warehouse facility"
                       className="w-full h-full object-cover grayscale-[30%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700 ease-out"
                     />

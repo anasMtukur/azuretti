@@ -14,11 +14,11 @@ const slides = [
 
 eyebrow: "EU-Compliant & Traceable",
 
-title: "Secure Your Export Gateway",
+title: "Connecting Nigerian Excellence to European Markets.",
 
 subtitle: "",
 
-image: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&q=80&w=1200",
+image: "/images/slide-5.jpg",
 
 },
 
@@ -26,11 +26,11 @@ image: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format
 
 eyebrow: "Euro-Based Revenue",
 
-title: "Maximize Your Trade Returns",
+title: "Your Gateway for Nigerian Exports to France and Europe",
 
 subtitle: "",
 
-image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&q=80&w=1200",
+image: "/images/slide-1.jpg",
 
 },
 
@@ -42,7 +42,7 @@ title: "Reach 500 Million Consumers",
 
 subtitle: "",
 
-image: "https://images.unsplash.com/photo-1503917988258-f19782f4c9a1?auto=format&fit=crop&q=80&w=1200",
+image: "/images/slide-7.jpeg",
 
 }
 
@@ -50,12 +50,12 @@ image: "https://images.unsplash.com/photo-1503917988258-f19782f4c9a1?auto=format
 
 export function StatsSection() {
   return (
-    <section className="bg-primary-600 py-14 px-14" aria-label="Key statistics">
+    <section className="bg-white py-14 px-14" aria-label="Key statistics">
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[3fr_1fr]">
-        <div className="bg-white">
+        <div className="">
           <Carousel slides={slides} />
         </div>
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-1">
+        <div className="grid grid-cols-2 gap-6 lg:grid-cols-2 bg-primary-600">
           {stats.map(({ value, label, icon: Icon }) => (
             <div
               key={label}

@@ -48,23 +48,22 @@ export function HeroSection() {
 
       <div className="relative container-theme section-padding z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <div className="max-w-3xl">
+          <div className="max-w-5xl">
             <div className="animate-fade-up">
               {/* Eyebrow - Kept original styled chip for context */}
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 border border-white/20 text-white/80 text-sm font-medium mb-6">
                 <span className="w-2 h-2 rounded-full bg-accent-400 animate-pulse-slow" />
-                Global Trade Gateway
+                Europe Trade Gateway
               </div>
 
               {/* Dynamic Accent Coloring on Title */}
               <h1 className="font-display font-bold text-white mb-6 text-5xl lg:text-6xl leading-tight drop-shadow-sm">
-                Your Gateway to{" "}
-                <span className="text-accent-400">European Markets</span>
+                Export<br /> Trade House - <span className="text-accent-400">ETH</span>
               </h1>
 
               {/* Requested Subtitle Copy */}
               <p className="text-lg text-white/85 leading-relaxed mb-8 max-w-2xl drop-shadow-sm">
-                Connecting verified Nigerian exporters with trusted European buyers through our fully compliant Trade House in France.
+                Your Gateway to European Markets - Connecting verified Nigerian exporters with trusted European buyers through our fully compliant Trade House in France.
               </p>
             </div>
 

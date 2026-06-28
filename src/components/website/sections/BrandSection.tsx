@@ -52,7 +52,7 @@ export function BrandSection() {
             
             {/* Minimalist Pill Label */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent-400/10 border border-accent-400/20 text-accent-400 text-xs font-semibold uppercase tracking-widest mb-6 w-fit">
-              Our Product
+              Our Brand
             </div>
 
             {/* Dynamic Main Title */}

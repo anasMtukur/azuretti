@@ -80,7 +80,7 @@ export function HeroSubSection({ type, tagText, title, description, bgImage }: H
 
       {/* Content Wrapper */}
       <div className={type === "news" ? "max-w-5xl mx-auto text-center relative z-10" : `container-theme relative z-10 ${isCentered ? "text-center" : ""}`}>
-        <div className={!isCentered && type !== "compliance" ? "" : type === "compliance" ? "max-w-2xl" : ""}>
+        <div className={!isCentered && type !== "compliance" ? "" : type === "compliance" ? "max-w-full" : ""}>
           
           {/* Custom Tag Badges */}
           {type === "news" ? (

@@ -16,7 +16,7 @@ export default function ContactPage() {
       <HeroSubSection
         type="contact"
         tagText="Contact Us"
-        title="Let's start the conversation"
+        title={<>Let's start the <span className="text-accent-400">conversation</span></>}
         description="Our team in Nigeria and France is ready to guide you — whether you're an exporter, buyer, investor or institution."
       />
 
