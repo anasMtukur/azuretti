@@ -218,40 +218,6 @@ export default function ExporterPage() {
         </div>
       </section>
 
-      {/* ── Who Can Partner ────────────────────────────────────────────── 
-      <section id="farmers" className="section-padding bg-neutral-50">
-        <div className="container-theme">
-          <div className="text-center max-w-xl mx-auto mb-14">
-            <span className="section-label mb-4 justify-center">Who Can Partner With Us</span>
-            <h2 className="font-display font-bold text-neutral-900">
-              There's a pathway for everyone in the supply chain
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {partnerTypes.map(({ icon: Icon, role, desc, cta, href }) => (
-              <div
-                key={role}
-                className="flex flex-col p-8 rounded-2xl bg-white border border-border hover:shadow-lg transition-all duration-200"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary-50 flex items-center justify-center mb-5">
-                  <Icon className="h-6 w-6 text-primary-600" />
-                </div>
-                <h3 className="font-display font-bold text-xl text-neutral-900 mb-3">{role}</h3>
-                <p className="text-sm text-neutral-500 leading-relaxed flex-1 mb-6">{desc}</p>
-                <Link
-                  href={href}
-                  className="btn-primary text-sm justify-center"
-                >
-                  {cta}
-                  <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>*/}
-
       {/* ── How It Works ───────────────────────────────────────────────── */}
       <section id="how-it-works" className="section-padding bg-neutral-50">
         <div className="container-theme">
