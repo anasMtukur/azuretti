@@ -6,7 +6,6 @@ import { getDb } from "@/db";
 import {
   shipments, demandAllocations, demandRequests,
   commodities, warehouseReceipts, warehouseReceiptItems,
-  buyerProfiles,
 } from "@/db/schema";
 import { eq, desc, sql, count } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
@@ -27,7 +26,6 @@ export default async function ExporterDashboardPage() {
   const user = await getCurrentUser();
   if (!user) redirect("/auth/login");
 
-  // ── Summary stats ─────────────────────────────────────────
   const [stockRow] = await db
     .select({
       totalMtInStock: sql<number>`
@@ -54,9 +52,6 @@ export default async function ExporterDashboardPage() {
     .from(warehouseReceipts)
     .where(eq(warehouseReceipts.ownerId, user.id));
 
-  // ── 5 most recent shipments for this exporter ─────────────
-  // A shipment is "for this exporter" if any demandAllocation
-  // for the shipment's demand references this user.
   const recentShipments = await db
     .selectDistinctOn([shipments.id], {
       id:               shipments.id,
@@ -139,7 +134,6 @@ export default async function ExporterDashboardPage() {
         ))}
       </div>
 
-      // ── Recent Shipments ──
       <div>
         <div className="flex items-center justify-between mb-4">
           <div>
