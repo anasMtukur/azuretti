@@ -15,6 +15,13 @@
       "when": 1777456933269,
       "tag": "0001_productive_maggott",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783522505232,
+      "tag": "0002_fair_barracuda",
+      "breakpoints": true
     }
   ]
 }

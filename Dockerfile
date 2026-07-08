@@ -7,10 +7,18 @@ RUN npm install --prefer-offline --no-audit
 # 2. BUILDER
 FROM node:20-alpine AS builder
 WORKDIR /app
+
+ARG DATABASE_URL
+
+ENV DATABASE_URL=${DATABASE_URL}
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+
+RUN echo "DATABASE_URL=$DATABASE_URL"
 RUN npm run build
 
 # 5. MIGRATOR (db-init only)

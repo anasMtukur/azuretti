@@ -15,7 +15,8 @@ services:
       test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 10s
       timeout: 5s
-      retries: 10
+      retries: 30          # Increased from 10 to 15
+      start_period: 5m     # Added 2 minutes grace period for crash recovery
     networks: [appnet]
 
   minio:
@@ -37,8 +38,8 @@ services:
       - "9001"
     
     ports:
-      - "9000:9000"
-      - "9001:9001"
+      - "127.0.0.1:9000:9000"
+      - "127.0.0.1:9001:9001"
 
     volumes:
       - minio_data:/data
@@ -75,6 +76,8 @@ services:
       context: .
       dockerfile: Dockerfile
       target: migrator
+      args:
+        DATABASE_URL: ${DATABASE_URL}
     container_name: azuretti-db-init
     env_file:
       - .env
@@ -87,6 +90,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        DATABASE_URL: ${DATABASE_URL}
       # No target specified here = defaults to the last stage (runner/standalone)
     container_name: azuretti-app
     restart: unless-stopped
