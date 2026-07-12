@@ -72,6 +72,7 @@
 
   /* Spacing */
   --section-padding-y:    1.5rem;
+  --section-padding-y-lg: 8.5rem;
   --section-padding-y-sm: 1rem;
   --container-max-width:  1280px;
   --container-padding-x:  1.5rem;
@@ -141,12 +142,25 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.015em;
 }
 
-h1 { font-size: clamp(2.25rem, 5vw, 4rem); }
+/* h1 { font-size: clamp(2.25rem, 5vw, 4rem); }
 h2 { font-size: clamp(1.875rem, 4vw, 3rem); }
-h3 { font-size: clamp(1.5rem, 3vw, 2.25rem); }
+h3 { font-size: clamp(1.5rem, 3vw, 2.25rem); } */
 h4 { font-size: clamp(1.25rem, 2.5vw, 1.875rem); }
 h5 { font-size: clamp(1.125rem, 2vw, 1.5rem); }
 h6 { font-size: clamp(1rem, 1.5vw, 1.25rem); }
+
+h1 {
+  /* clamp(minimum, preferred/fluid, maximum) */
+  font-size: clamp(2rem, 5vw + 1rem, 4rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 3vw + 1rem, 2.5rem);
+}
+
+h3 {
+  font-size: clamp(1.2rem, 2vw + 1rem, 1.8rem);
+}
 
 p {
   font-family: var(--font-body);
@@ -190,6 +204,16 @@ p {
   /* Section vertical padding */
   .section-padding {
     padding-top: var(--section-padding-y);
+    padding-bottom: var(--section-padding-y);
+  }
+
+  .section-padding-lg {
+    padding-top: var(--section-padding-y-lg);
+    padding-bottom: var(--section-padding-y-lg);
+  }
+
+  .section-padding-lg-top {
+    padding-top: var(--section-padding-y-lg);
     padding-bottom: var(--section-padding-y);
   }
   .section-padding-sm {

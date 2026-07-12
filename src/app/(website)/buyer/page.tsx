@@ -98,7 +98,7 @@ export default function BuyerPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-gradient-hero pt-24">
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-gradient-hero lg:section-padding section-padding-lg-top">
         {/* Grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.04]"
@@ -121,7 +121,7 @@ export default function BuyerPage() {
               <Globe2 className="h-3.5 w-3.5 text-blue-400" />
               For European Buyers
             </div>
-            <h1 className="font-display font-bold text-white mb-5">
+            <h1 className="font-display font-bold text-white text-2xl lg:text-5xl mb-5">
               Verified Nigerian commodities from{" "}
               <span className="text-accent-400"> ETH</span>
             </h1>

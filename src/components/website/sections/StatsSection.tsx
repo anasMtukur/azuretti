@@ -65,7 +65,7 @@ export function StatsSection() {
                 <Icon className="h-6 w-6 text-accent-300" />
               </div>
               <div>
-                <div className="font-display font-bold text-3xl text-white leading-none mb-1">
+                <div className="font-display font-bold text-lg lg:text-3xl text-white leading-none mb-1">
                   {value}
                 </div>
                 <div className="text-sm text-primary-200 leading-snug">{label}</div>

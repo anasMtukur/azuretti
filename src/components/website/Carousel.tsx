@@ -119,7 +119,7 @@ export function Carousel({ slides, autoPlayInterval = 6000 }: UniversalHeroCarou
               )}
 
               {/* Dynamic Title */}
-              <h1 className="font-display font-bold text-white mb-6 text-5xl lg:text-6xl leading-tight drop-shadow-sm">
+              <h1 className="font-display font-bold text-white mb-6 text-2xl lg:text-5xl leading-tight drop-shadow-sm">
                 {renderTitle(slides[currentSlide].title)}
               </h1>
 

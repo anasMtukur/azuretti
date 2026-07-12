@@ -115,7 +115,7 @@ export default function AboutPage() {
           </div>
 
           {/* Stats column */}
-          <div className="grid grid-cols-4 gap-4 mt-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4  gap-4 mt-8">
             {[
               { value: "15+",      label: "Years of agricultural export experience" },
               { value: "150+ MT",  label: "Metric tonnes shipped to Europe" },

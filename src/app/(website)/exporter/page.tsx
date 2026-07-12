@@ -115,7 +115,7 @@ export default function ExporterPage() {
   return (
     <>
       {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-gradient-hero pt-20">
+      <section className="relative min-h-[60vh] flex items-center overflow-hidden bg-gradient-hero lg:section-padding-sm section-padding-lg-top">
         <div
           className="absolute inset-0 opacity-[0.04]"
           style={{
@@ -137,7 +137,7 @@ export default function ExporterPage() {
               <span className="w-2 h-2 rounded-full bg-accent-400 animate-pulse-slow" />
               For Nigerian Exporters
             </div>
-            <h1 className="font-display font-bold text-white mb-5">
+            <h1 className="font-display font-bold text-white text-2xl lg:text-5xl mb-5">
               Turn your commodities into{" "}
               <span className="text-accent-400">Euro revenue</span>
             </h1>
@@ -176,7 +176,7 @@ export default function ExporterPage() {
       </section>
 
       {/* ── What We Bring ──────────────────────────────────────────────── */}
-      <section className="section-padding bg-white">
+      <section className="section-padding-sm bg-white">
         <div className="container-theme relative">
           <div className="max-w-xl mb-14">
             <span className="section-label mb-4">What We Bring to Nigerian Exporters</span>

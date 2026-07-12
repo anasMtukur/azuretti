@@ -24,11 +24,11 @@ export function HeroSubSection({ type, tagText, title, description, bgImage }: H
   }[type];
 
   const headingClasses = {
-    about: "font-display font-bold text-white mb-5",
-    commodities: "font-display font-bold text-white mb-4",
-    compliance: "font-display font-bold text-white mb-5",
-    contact: "font-display font-bold text-white mb-4",
-    news: "font-display font-bold text-4xl sm:text-5xl text-white mb-4",
+    about: "font-display font-bold text-2xl lg:text-5xl text-white mb-5",
+    commodities: "font-display text-2xl lg:text-5xl font-bold text-white mb-4",
+    compliance: "font-display font-bold text-2xl lg:text-5xl text-white mb-5",
+    contact: "font-display font-bold text-2xl lg:text-5xl text-white mb-4",
+    news: "font-display font-bold text-2xl lg:text-5xl text-white mb-4",
   }[type];
 
   const descriptionClasses = {

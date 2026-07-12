@@ -94,26 +94,16 @@ export function Navbar() {
         >
           <div className="container-theme h-full flex items-center justify-between">
             {/* Logo */}
-            <Link href="/" className="flex items-center gap-2.5 group">
-              <img src="/images/logo.png" alt="Azuretti Services" />
-              {/* <div className="w-9 h-9 rounded-lg bg-primary-600 flex items-center justify-center shadow-sm group-hover:bg-primary-700 transition-colors">
-                <span className="text-white font-display font-bold text-base">A</span>
-              </div>
-              <div className="flex flex-col leading-tight">
-                <span className={cn(
-                  "font-display font-bold text-lg leading-none transition-colors",
-                  scrolled ? "text-primary-700" : "text-white"
-                )}>
-                  Azuretti
-                </span>
-                <span className={cn(
-                  "text-[10px] font-medium uppercase tracking-wider transition-colors",
-                  scrolled ? "text-neutral-500" : "text-primary-200"
-                )}>
-                  Export Trade House
-                </span>
-              </div> */}
-            </Link>
+            <div className="hidden items-center gap-2.5 group lg:flex w-36">
+              <Link href="/" >
+                <img src="/images/logo.jpg" alt="Azuretti Services" />
+              </Link>
+            </div>
+            <div className="flex items-center gap-2.5 group lg:hidden w-9">
+              <Link href="/">
+                <img src="/images/icon.jpg" alt="Azuretti Services" />
+              </Link>
+            </div>
 
             {/* Desktop Navigation */}
             <div ref={dropdownRef} className="hidden lg:flex items-center gap-1">
@@ -207,7 +197,7 @@ export function Navbar() {
 
       {/* Mobile menu drawer */}
       {mobileOpen && (
-        <div className="fixed inset-0 z-[90] lg:hidden">
+        <div className="fixed inset-0 z-[100] lg:hidden">
           {/* Backdrop */}
           <div
             className="absolute inset-0 bg-neutral-900/50 backdrop-blur-sm"

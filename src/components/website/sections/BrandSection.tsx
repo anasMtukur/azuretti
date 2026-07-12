@@ -56,7 +56,7 @@ export function BrandSection() {
             </div>
 
             {/* Dynamic Main Title */}
-            <h2 className="font-display font-bold text-4xl sm:text-5xl tracking-tight text-white mb-6 leading-tight">
+            <h2 className="font-display text-2xl lg:text-5xl tracking-tight text-white mb-6 leading-tight">
               DJeni®<span className="text-accent-400 font-sans text-xl relative -top-4">®</span> – Our Premium Consumer Brand
             </h2>
 
