@@ -50,8 +50,8 @@ image: "/images/slide-7.jpeg",
 
 export function StatsSection() {
   return (
-    <section className="bg-white py-14 px-14" aria-label="Key statistics">
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[3fr_1fr]">
+    <section className="bg-white section-padding-sm px-2" aria-label="Key statistics">
+      <div className="grid grid-cols-1 gap-2 lg:grid-cols-[3fr_1fr]">
         <div className="">
           <Carousel slides={slides} />
         </div>
