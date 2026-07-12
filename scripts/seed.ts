@@ -81,6 +81,7 @@ async function main() {
         .set({
           password:  hashedPassword,
           role:      "admin",
+          adminRole: "system_admin",
           isActive:  true,
           updatedAt: new Date(),
         })
@@ -92,6 +93,7 @@ async function main() {
         email:    ADMIN_SEED.email,
         password: hashedPassword,
         role:     "admin",
+        adminRole: "system_admin",
         isActive: true,
       });
       console.log(`     ✓ Admin user created  (${ADMIN_SEED.email})`);
