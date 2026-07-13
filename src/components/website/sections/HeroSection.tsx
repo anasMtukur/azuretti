@@ -46,7 +46,7 @@ export function HeroSection() {
         aria-hidden="true"
       />
 
-      <div className="relative container-theme section-padding-lg-top lg:section-padding z-10 w-full">
+      <div className="relative container-theme section-padding-lg-top z-10 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="max-w-5xl">
             <div className="animate-fade-up">

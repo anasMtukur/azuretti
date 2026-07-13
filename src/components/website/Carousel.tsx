@@ -57,7 +57,7 @@ export function Carousel({ slides, autoPlayInterval = 6000 }: UniversalHeroCarou
 
   return (
     <section
-      className="relative min-h-[55vh] flex items-center overflow-hidden bg-slate-950"
+      className="relative min-h-full flex items-center overflow-hidden bg-slate-950"
       aria-label="Interactive Hero Showcase"
     >
       {/* Background Layer: Images or Videos */}
