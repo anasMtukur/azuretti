@@ -29,7 +29,7 @@ export default async function ExporterDashboardPage() {
   const [stockRow] = await db
     .select({
       totalMtInStock: sql<number>`
-        COALESCE(SUM(wri.quantity_mt - wri.quantity_dispatched_mt), 0)
+        COALESCE(SUM(${warehouseReceiptItems.quantityMt} - ${warehouseReceiptItems.quantityDispatchedMt}), 0)
       `.mapWith(Number),
     })
     .from(warehouseReceiptItems)
