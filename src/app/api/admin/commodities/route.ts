@@ -19,6 +19,7 @@ const schema = z.object({
   minOrderQtyMt:    z.string().optional(),
   isActive:         z.boolean().default(true),
   sortOrder:        z.number().int().default(0),
+  factSheetUrl:     z.string().optional().default(""),
 });
 
 async function requireAdmin() {

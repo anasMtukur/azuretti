@@ -298,6 +298,7 @@ export const commodities = pgTable("commodities", {
   packagingOptions: jsonb("packaging_options"),
   minOrderQtyMt:    decimal("min_order_qty_mt", { precision: 10, scale: 2 }),
   certifications:   jsonb("certifications"),       // array of cert names
+  factSheetUrl:     text("fact_sheet_url"),   // MinIO presigned or public URL
   imageUrl:         text("image_url"),
   isActive:         boolean("is_active").default(true).notNull(),
   sortOrder:        integer("sort_order").default(0),

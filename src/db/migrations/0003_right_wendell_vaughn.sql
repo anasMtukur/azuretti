@@ -1,0 +1,1 @@
+ALTER TABLE "commodities" ADD COLUMN "fact_sheet_url" text;

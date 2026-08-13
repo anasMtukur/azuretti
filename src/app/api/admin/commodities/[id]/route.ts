@@ -20,6 +20,7 @@ const schema = z.object({
   minOrderQtyMt:    z.string().optional(),
   isActive:         z.boolean(),
   sortOrder:        z.number().int(),
+  factSheetUrl:     z.string().optional().default(""),
 });
 
 async function requireAdmin() {
@@ -38,6 +39,7 @@ export async function PATCH(
   if (!parsed.success)
     return NextResponse.json({ error: parsed.error.errors[0].message }, { status: 400 });
 
+  console.log('ParsedData', parsed.data);
   await db.update(commodities)
     .set({ ...parsed.data, updatedAt: new Date() })
     .where(eq(commodities.id, params.id));

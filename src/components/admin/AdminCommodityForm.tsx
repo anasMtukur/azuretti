@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
-import { Loader2, Save, Plus, X } from "lucide-react";
+import { Loader2, Save, Plus, X, FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/components/providers/ToastProvider";
 import { slugify } from "@/lib/utils";
@@ -18,6 +18,7 @@ const schema = z.object({
   minOrderQtyMt:    z.string().optional(),
   isActive:         z.boolean().default(true),
   sortOrder:        z.number().int().default(0),
+  factSheetUrl:     z.string().optional().default(""),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -34,6 +35,7 @@ interface AdminCommodityFormProps {
     packagingOptions: unknown;
     minOrderQtyMt: string | null;
     certifications: unknown;
+    factSheetUrl: string | null;
     isActive: boolean;
     sortOrder: number | null;
   } | null;
@@ -57,6 +59,26 @@ export function AdminCommodityForm({ commodity }: AdminCommodityFormProps) {
   const [packagingInput, setPackagingInput] = useState("");
   const [certInput, setCertInput]         = useState("");
 
+  const [factSheetFile, setFactSheetFile] = useState<File | null>(null);
+  const [factSheetUploading, setFactSheetUploading] = useState(false);
+  const [factSheetUrl, setFactSheetUrl] = useState<string>(commodity?.factSheetUrl ?? "");
+
+  async function uploadFactSheet(file: File) {
+    setFactSheetUploading(true);
+    try {
+      const res = await fetch("/api/admin/commodities/upload-url", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ fileName: file.name, contentType: file.type }),
+      });
+      const { uploadUrl, fileUrl } = await res.json();
+      await fetch(uploadUrl, { method: "PUT", body: file });
+      setFactSheetUrl(fileUrl);
+    } finally {
+      setFactSheetUploading(false);
+    }
+  }
+
   const { register, handleSubmit, setValue, watch, formState: { errors, isSubmitting } } = useForm<FormData>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -68,6 +90,7 @@ export function AdminCommodityForm({ commodity }: AdminCommodityFormProps) {
       minOrderQtyMt: commodity?.minOrderQtyMt ?? "",
       isActive:      commodity?.isActive      ?? true,
       sortOrder:     commodity?.sortOrder     ?? 0,
+      factSheetUrl:  commodity?.factSheetUrl  ?? "",
     },
   });
 
@@ -92,7 +115,7 @@ export function AdminCommodityForm({ commodity }: AdminCommodityFormProps) {
   }
 
   async function onSubmit(data: FormData) {
-    const payload = { ...data, grades, packagingOptions: packaging, certifications: certs };
+    const payload = { ...data, grades, packagingOptions: packaging, certifications: certs, factSheetUrl };
     const url    = isNew ? "/api/admin/commodities" : `/api/admin/commodities/${commodity!.id}`;
     const method = isNew ? "POST" : "PATCH";
 
@@ -194,6 +217,48 @@ export function AdminCommodityForm({ commodity }: AdminCommodityFormProps) {
           </div>
         </div>
       ))}
+
+      <div className="space-y-2">
+        <label className="text-sm font-medium text-neutral-700">Fact Sheet (PDF)</label>
+
+        {factSheetUrl && (
+          <div className="flex items-center gap-2 p-2 border border-border rounded-lg bg-neutral-50">
+            <FileText className="h-4 w-4 text-neutral-400 shrink-0" />
+            <a href={factSheetUrl} target="_blank" rel="noopener noreferrer"
+              className="text-sm text-primary truncate flex-1 hover:underline">
+              Current fact sheet
+            </a>
+            <button type="button" onClick={() => setFactSheetUrl("")}
+                    className="text-xs text-red-500 hover:text-red-700">Remove</button>
+          </div>
+        )}
+
+        <div
+          className="border-2 border-dashed border-border rounded-lg p-4 text-center cursor-pointer hover:border-primary/50 transition-colors"
+          onClick={() => document.getElementById("factsheet-input")?.click()}
+        >
+          {factSheetUploading ? (
+            <p className="text-sm text-neutral-500">Uploading…</p>
+          ) : factSheetFile ? (
+            <p className="text-sm text-neutral-700">{factSheetFile.name}</p>
+          ) : (
+            <p className="text-sm text-neutral-400">Click to upload PDF</p>
+          )}
+          <input
+            id="factsheet-input"
+            type="file"
+            accept="application/pdf"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) { setFactSheetFile(file); uploadFactSheet(file); }
+            }}
+          />
+        </div>
+
+        {/* Pass the resolved URL to your form submit */}
+        <input type="hidden" name="factSheetUrl" value={factSheetUrl} />
+      </div>
 
       {/* Sort order + Active */}
       <div className="grid grid-cols-2 gap-5">
