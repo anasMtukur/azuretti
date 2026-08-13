@@ -34,8 +34,8 @@ export default async function AdminUserEditPage({
   return (
     <div className="max-w-2xl space-y-6">
       <div>
-        <h1 className="font-display font-bold text-2xl text-neutral-900">Edit User</h1>
-        <p className="text-sm text-neutral-500 mt-1">{user?.email ?? 'Create a new user'}</p>
+        <h1 className="font-display font-bold text-2xl text-neutral-900">{isNew ? 'Create User' : 'Edit User'}</h1>
+        <p className="text-sm text-neutral-500 mt-1">{isNew ? 'Create a new user' : 'Update existing user'}</p>
       </div>
       <div className="card p-8">
         <AdminUserForm user={user} />

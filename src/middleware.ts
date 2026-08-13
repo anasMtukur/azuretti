@@ -17,7 +17,7 @@ import type { NextRequest } from "next/server";
  * ============================================================
  */
 const ROLE_ROUTES: Record<string, string[]> = {
-  system_admin:      ["/admin/dashboard", "/admin/users", "/admin/reports"],
+  system_admin:      ["/admin/dashboard", "/admin/users", "/admin/warehouse", "/admin/demands", "/admin/shipments", "/admin/commodities", "/admin/commodity-prices", "/admin/contacts", "/admin/news", "/admin/finance", "/admin/reports"],
   warehouse_manager: ["/admin/dashboard", "/admin/warehouse", "/admin/demands", "/admin/shipments", "/admin/reports"],
   content_manager:   ["/admin/commodities", "/admin/commodity-prices", "/admin/contacts", "/admin/news"],
   finance_manager:   ["/admin/finance", "/admin/reports"],

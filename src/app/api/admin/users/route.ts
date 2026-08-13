@@ -18,7 +18,7 @@ const schema = z.object({
   password:  z.string().optional(),
 });
 
-export async function PATCH(
+export async function POST(
   req: NextRequest
 ) {
   const session = await getSession();
@@ -33,13 +33,8 @@ export async function PATCH(
   }
 
   const { name, email, role, adminRole, isActive, password } = parsed.data;
-
-  const newData: Record<string, unknown> = {
-    name, email: email.toLowerCase().trim(), role, isActive,
-  };
-
   if (password && password.length >= 8) {
-    newData.password = await bcrypt.hash(password, 12);
+    parsed.data.password = await bcrypt.hash(password, 12);
   }
 
   const [created] = await db.insert(users).values({
