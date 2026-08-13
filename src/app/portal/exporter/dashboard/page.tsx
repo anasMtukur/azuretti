@@ -41,8 +41,8 @@ export default async function ExporterDashboardPage() {
 
   const [salesRow] = await db
     .select({
-      totalRevenue:   sql<number>`COALESCE(SUM(allocation_amount), 0)`.mapWith(Number),
-      pendingSettl:   sql<number>`SUM(CASE WHEN settlement_status = 'pending' THEN 1 ELSE 0 END)`.mapWith(Number),
+      totalRevenue: sql<number>`COALESCE(SUM(${demandAllocations.allocationAmount}), 0)`.mapWith(Number),
+      pendingSettl: sql<number>`SUM(CASE WHEN ${demandAllocations.settlementStatus} = 'pending' THEN 1 ELSE 0 END)`.mapWith(Number),
     })
     .from(demandAllocations)
     .where(eq(demandAllocations.exporterUserId, user.id));
