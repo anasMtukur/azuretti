@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { theme } from "@/config/theme";
+import { Logo } from "@/components/website/Logo";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -27,19 +28,7 @@ export default function AuthLayout({ children }: AuthLayoutProps) {
         />
 
         {/* Logo */}
-        <Link href="/" className="relative flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center border border-white/20">
-            <span className="text-white font-display font-bold text-lg">A</span>
-          </div>
-          <div>
-            <div className="font-display font-bold text-white text-xl leading-none">
-              {theme.brand.name}
-            </div>
-            <div className="text-xs text-primary-200 font-medium mt-0.5">
-              {theme.brand.tagline}
-            </div>
-          </div>
-        </Link>
+        <Logo />
 
         {/* Quote block */}
         <div className="relative z-10">

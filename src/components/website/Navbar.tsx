@@ -8,6 +8,7 @@ import { Menu, X, ChevronDown, LogIn, LayoutDashboard } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { theme } from "@/config/theme";
 import { PriceTicker } from "./sections/PriceTicker";
+import { Logo } from "./Logo";
 
 const navLinks = [
   { label: "Home",        href: "/" },
@@ -93,17 +94,7 @@ export function Navbar() {
           }}
         >
           <div className="container-theme h-full flex items-center justify-between">
-            {/* Logo */}
-            <div className="hidden items-center gap-2.5 group lg:flex w-36">
-              <Link href="/" >
-                <img src="/images/logo.jpg" alt="Azuretti Services" />
-              </Link>
-            </div>
-            <div className="flex items-center gap-2.5 group lg:hidden w-9">
-              <Link href="/">
-                <img src="/images/icon.jpg" alt="Azuretti Services" />
-              </Link>
-            </div>
+            <Logo />
 
             {/* Desktop Navigation */}
             <div ref={dropdownRef} className="hidden lg:flex items-center gap-1">

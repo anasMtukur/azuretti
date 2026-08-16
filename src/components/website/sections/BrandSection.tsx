@@ -57,12 +57,12 @@ export function BrandSection() {
 
             {/* Dynamic Main Title */}
             <h2 className="font-display text-2xl lg:text-5xl tracking-tight text-white mb-6 leading-tight">
-              DJeni®<span className="text-accent-400 font-sans text-xl relative -top-4">®</span> – Our Premium Consumer Brand
+              DJENI<span className="text-accent-400 font-sans text-xl relative -top-4">®</span> – Our Premium Consumer Brand
             </h2>
 
             {/* Structured Copy Blocks */}
             <p className="text-lg text-white/85 leading-relaxed mb-6 font-normal">
-              <strong className="text-white font-semibold">DJeni®</strong> is Azuretti's registered brand in Nigeria and France, supplying premium Nigerian food products to supermarkets, wholesalers, distributors, and retailers across Europe.
+              <strong className="text-white font-semibold">DJENI</strong> is Azuretti's registered brand in Nigeria and France, supplying premium Nigerian food products to supermarkets, wholesalers, distributors, and retailers across Europe.
             </p>
 
             <p className="text-base text-white/70 leading-relaxed mb-8">

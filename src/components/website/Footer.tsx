@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Mail, Phone, MapPin, ExternalLink } from "lucide-react";
 import { theme } from "@/config/theme";
+import { Logo } from "./Logo";
 
 const footerLinks = {
   "Platform": [
@@ -61,21 +62,9 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12">
           {/* Brand column */}
           <div className="lg:col-span-4">
-            <Link href="/" className="inline-flex items-center gap-2.5 mb-5">
-              <div className="w-9 h-9 rounded-lg bg-primary-600 flex items-center justify-center">
-                <span className="text-white font-display font-bold text-base">A</span>
-              </div>
-              <div>
-                <div className="font-display font-bold text-white text-lg leading-none">
-                  Azuretti
-                </div>
-                <div className="text-[10px] text-neutral-500 font-medium uppercase tracking-wider mt-0.5">
-                  Service & Distribution
-                </div>
-              </div>
-            </Link>
+            <Logo />
 
-            <p className="text-sm leading-relaxed text-neutral-400 mb-6 max-w-xs">
+            <p className="text-sm leading-relaxed text-neutral-400 mb-6 mt-6 max-w-xs">
               Nigeria Export Trade House in France — your compliant gateway to
               Europe's 500 million consumers.
             </p>
