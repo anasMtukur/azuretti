@@ -825,6 +825,22 @@ export const shipmentDocumentsRelations = relations(shipmentDocuments, ({ one })
   }),
 }));
 
+// ── Password Reset Tokens ──────────────────────────────────────────────────
+export const passwordResetTokens = pgTable(
+  "password_reset_tokens",
+  {
+    id:        uuid("id").primaryKey().defaultRandom(),
+    userId:    uuid("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+    token:     text("token").notNull().unique(),
+    expiresAt: timestamp("expires_at", { mode: "date" }).notNull(),
+    createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
+  },
+  (t) => ({
+    tokenIdx:  uniqueIndex("prt_token_idx").on(t.token),
+    userIdx:   index("prt_user_idx").on(t.userId),
+  })
+);
+
 // ── Type exports ───────────────────────────────────────────────────────────
 export type User                  = typeof users.$inferSelect;
 export type NewUser               = typeof users.$inferInsert;
@@ -845,3 +861,4 @@ export type Payment               = typeof payments.$inferSelect;
 export type ShipmentDocument      = typeof shipmentDocuments.$inferSelect;
 export type ReceiptItemDocument   = typeof receiptItemDocuments.$inferSelect;
 export type ShipmentStatusEvent   = typeof shipmentStatusEvents.$inferSelect;
+export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;

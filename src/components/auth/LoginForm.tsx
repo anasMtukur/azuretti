@@ -69,14 +69,8 @@ export default function LoginForm() {
             <div>
             <div className="flex items-center justify-between mb-1.5">
                 <label htmlFor="password" className="label mb-0">
-                Password
+                    Password
                 </label>
-                <Link
-                href="/auth/forgot-password"
-                className="text-xs text-primary-600 hover:text-primary-800 transition-colors"
-                >
-                Forgot password?
-                </Link>
             </div>
             <div className="relative">
                 <input
@@ -99,6 +93,15 @@ export default function LoginForm() {
             {errors.password && (
                 <p className="mt-1.5 text-xs text-error">{errors.password.message}</p>
             )}
+            </div>
+
+            <div className="flex items-center justify-end mb-4">
+                <Link
+                    href="/auth/forgot-password"
+                    className="text-xs text-primary hover:underline font-medium"
+                >
+                    Forgot password?
+                </Link>
             </div>
 
             {/* Submit */}

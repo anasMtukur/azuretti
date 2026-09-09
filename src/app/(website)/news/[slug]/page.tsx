@@ -137,7 +137,7 @@ export default async function NewsArticlePage({ params }: Props) {
   const badge = TYPE_BADGE[item.type ?? "news"];
 
   return (
-    <main className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white">
       {/* ── Cover image ─────────────────────────────────── */}
       {item.imageUrl && (
         <div className="h-72 sm:h-96 overflow-hidden bg-neutral-100">
@@ -294,6 +294,6 @@ export default async function NewsArticlePage({ params }: Props) {
           </div>
         </div>
       )}
-    </main>
+    </div>
   );
 }
