@@ -4,7 +4,7 @@ import { eq } from "drizzle-orm";
 import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
 
-import { getSession } from "@/lib/auth/helpers";
+import { getSession, requireRole } from "@/lib/auth/helpers";
 
 const db = getDb();
 
@@ -47,13 +47,13 @@ export async function PATCH(
   return NextResponse.json({ message: "Updated." });
 }
 
-export async function DELETE(
-  _req: NextRequest,
-  { params }: { params: { id: string } }
-) {
-  if (!(await requireAdmin()))
-    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
+export async function DELETE(req: Request, { params }: { params: { id: string } }) {
+  await requireRole(["admin"]);
 
-  await db.delete(commodities).where(eq(commodities.id, params.id));
-  return NextResponse.json({ message: "Deleted." });
+  await db
+    .update(commodities)
+    .set({ isDeleted: true, deletedAt: new Date(), updatedAt: new Date() })
+    .where(eq(commodities.id, params.id));
+
+  return Response.json({ success: true });
 }

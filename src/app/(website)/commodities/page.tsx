@@ -6,6 +6,7 @@ import { commodities } from "@/db/schema";
 import { ArrowRight } from "lucide-react";
 import { theme } from "@/config/theme";
 import { HeroSubSection } from "@/components/website/sections/HeroSubSection";
+import { and, eq } from "drizzle-orm";
 
 const db = getDb();
 
@@ -37,6 +38,7 @@ export default async function Page({ searchParams }: CommoditiesPageProps) {
   const allCommodities = await db
     .select()
     .from(commodities)
+    .where(and(eq(commodities.isActive, true), eq(commodities.isDeleted, false)))
     .orderBy(commodities.sortOrder);
   // Validate and normalise the category param
   const raw = searchParams.category?.toLowerCase() ?? "";

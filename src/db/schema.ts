@@ -304,6 +304,8 @@ export const commodities = pgTable("commodities", {
   sortOrder:        integer("sort_order").default(0),
   createdAt:        timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
   updatedAt:        timestamp("updated_at", { mode: "date" }).defaultNow().notNull(),
+  isDeleted:        boolean("is_deleted").default(false).notNull(),
+  deletedAt:        timestamp("deleted_at", { mode: "date" }),
 });
 
 // ── Warehouse Receipts ─────────────────────────────────────────────────────

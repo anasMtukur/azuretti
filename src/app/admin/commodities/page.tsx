@@ -1,12 +1,12 @@
 import { requireRole } from "@/lib/auth/helpers";
 import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
-
-import { eq } from "drizzle-orm";
 import { formatDate } from "@/lib/utils";
 import Link from "next/link";
 import { Plus, Pencil } from "lucide-react";
 import { theme } from "@/config/theme";
+import router from "next/navigation";
+import { CommodityRowActions } from "@/components/admin/CommodityRowActions";
 
 const db = getDb();
 
@@ -104,13 +104,7 @@ export default async function AdminCommoditiesPage() {
                       {formatDate(c.updatedAt)}
                     </td>
                     <td className="px-4 py-3">
-                      <Link
-                        href={`/admin/commodities/${c.id}`}
-                        className="inline-flex items-center gap-1 text-xs font-medium text-primary-600 hover:text-primary-800 transition-colors"
-                      >
-                        <Pencil className="h-3 w-3" />
-                        Edit
-                      </Link>
+                      <CommodityRowActions id={c.id} name={c.name} isDeleted={c.isDeleted} />
                     </td>
                   </tr>
                 );

@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { getDb } from "@/db";
 import { commodities } from "@/db/schema";
 import { CommoditiesCurtainGrid } from "./CommoditiesCurtainGrid";
+import { and, eq } from "drizzle-orm";
 
 const db = getDb();
 
@@ -16,6 +17,7 @@ export async function CommoditiesPreview() {
   const previewCommodities = await db
     .select()
     .from(commodities)
+    .where(and(eq(commodities.isActive, true), eq(commodities.isDeleted, false)))
     .orderBy(commodities.sortOrder);
 
   // Group items by category keys
